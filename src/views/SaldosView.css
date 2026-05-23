@@ -1,0 +1,174 @@
+.view-title {
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  color: var(--color-text-primary);
+}
+
+.credit-card-widget {
+  background: var(--color-accent);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  color: #0F2C59;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  aspect-ratio: 1.586;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease-out;
+}
+
+[data-theme="glass"] .credit-card-widget {
+  background: linear-gradient(135deg, rgba(229, 197, 131, 0.9) 0%, rgba(197, 168, 128, 0.7) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="flat"] .credit-card-widget {
+  background: #0F2C59;
+  color: #FFFFFF;
+}
+
+[data-theme="brutalist"] .credit-card-widget {
+  background: var(--color-accent);
+  border: 3px solid #0F2C59;
+  box-shadow: 6px 6px 0px #0F2C59;
+  border-radius: 0;
+}
+
+/* Hover tilt effect for desktop */
+@media (min-width: 768px) {
+  .credit-card-widget:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) scale(1.02);
+  }
+}
+
+/* Holographic Shimmer */
+.card-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  animation: shimmer 6s infinite;
+  pointer-events: none;
+}
+
+[data-theme="flat"] .card-shimmer, 
+[data-theme="brutalist"] .card-shimmer {
+  display: none;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-logo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.card-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-body {
+  margin: 1.5rem 0;
+}
+
+.card-number {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.card-name {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  opacity: 0.8;
+}
+
+.detail-value {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.balance-summary {
+  max-width: 400px;
+}
+
+.balance-amounts {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+}
+
+[data-theme="flat"] .amount {
+  border-bottom: 1px solid #E9ECEF;
+}
+
+[data-theme="brutalist"] .amount {
+  border-bottom: 2px solid #0F2C59;
+}
+
+.amount .currency {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.amount .value {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-danger);
+}
+
+.bcv-note {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-align: right;
+}
