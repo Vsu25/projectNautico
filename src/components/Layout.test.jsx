@@ -6,7 +6,7 @@ describe('Layout', () => {
   it('renders navigation tabs and triggers onChangeTab', () => {
     const handleChangeTab = vi.fn();
     render(
-      <Layout currentTab="saldos" onChangeTab={handleChangeTab} theme="glass" onChangeTheme={() => {}}>
+      <Layout currentTab="saldos" onChangeTab={handleChangeTab} theme="glass" onChangeTheme={() => {}} mode="dark" onChangeMode={() => {}}>
         <div data-testid="child-content">Content</div>
       </Layout>
     );

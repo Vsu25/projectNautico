@@ -1,0 +1,29 @@
+.mode-toggle {
+  background: var(--bg-card);
+  border: var(--border-card);
+  box-shadow: var(--box-shadow);
+  color: var(--color-text-primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  font-size: 1.25rem;
+}
+
+.mode-toggle:hover {
+  transform: scale(1.05);
+}
+
+[data-theme="brutalist"] .mode-toggle {
+  border-radius: 0;
+  border: 2px solid #0F2C59;
+  box-shadow: 3px 3px 0px #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .mode-toggle {
+  border: 2px solid #FFFFFF;
+  box-shadow: 3px 3px 0px #FFD93D;
+}

@@ -1,12 +1,14 @@
 import React from 'react';
 import './Layout.css';
 import { ThemeSwitcher } from './ThemeSwitcher';
+import { ModeToggle } from './ModeToggle';
 
-export function Layout({ children, currentTab, onChangeTab, theme, onChangeTheme }) {
+export function Layout({ children, currentTab, onChangeTab, theme, onChangeTheme, mode, onChangeMode }) {
   const tabs = [
     { id: 'saldos', label: 'Saldos', icon: '💳' },
     { id: 'cuentas', label: 'Cuentas', icon: '🧾' },
-    { id: 'historial', label: 'Historial', icon: '🕒' }
+    { id: 'historial', label: 'Historial', icon: '🕒' },
+    { id: 'info', label: 'Guía', icon: 'ℹ️' }
   ];
 
   return (
@@ -33,7 +35,10 @@ export function Layout({ children, currentTab, onChangeTab, theme, onChangeTheme
         </nav>
 
         <div className="sidebar-footer">
-          <ThemeSwitcher currentTheme={theme} onChangeTheme={onChangeTheme} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <ModeToggle mode={mode} onToggle={onChangeMode} />
+            <ThemeSwitcher currentTheme={theme} onChangeTheme={onChangeTheme} />
+          </div>
         </div>
       </aside>
 
@@ -42,8 +47,11 @@ export function Layout({ children, currentTab, onChangeTab, theme, onChangeTheme
         <header className="mobile-header">
           <div className="logo-placeholder">CNM</div>
           <span className="bcv-rate">BCV: 92.45 VES</span>
-          <div className="mobile-theme-switcher">
-             <ThemeSwitcher currentTheme={theme} onChangeTheme={onChangeTheme} />
+          <div className="mobile-actions" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+             <ModeToggle mode={mode} onToggle={onChangeMode} />
+             <div className="mobile-theme-switcher">
+               <ThemeSwitcher currentTheme={theme} onChangeTheme={onChangeTheme} />
+             </div>
           </div>
         </header>
         
