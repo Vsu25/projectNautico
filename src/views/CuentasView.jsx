@@ -13,15 +13,29 @@ export function CuentasView() {
   ];
 
   const bcvRate = 92.45;
+  const totalUsd = mockBills.reduce((sum, bill) => sum + bill.amountUsd, 0);
 
   const handlePayBank = (bill) => {
     setSelectedBill(bill);
     setIsModalOpen(true);
   };
 
+  const handlePayAll = () => {
+    setSelectedBill({
+      invoice: 'Varias Facturas (Pago Total)',
+      amountUsd: totalUsd
+    });
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="view-content-active">
-      <h1 className="view-title">Cuentas por Pagar</h1>
+      <div className="cuentas-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem', maxWidth: '800px' }}>
+        <h1 className="view-title" style={{ marginBottom: 0 }}>Cuentas por Pagar</h1>
+        <button className="btn btn-primary" onClick={handlePayAll}>
+          Pagar Todas (${totalUsd.toFixed(2)})
+        </button>
+      </div>
       
       <div className="bills-list">
         {mockBills.map(bill => (

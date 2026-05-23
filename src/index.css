@@ -5,7 +5,8 @@
   --font-title: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
   
-  --bg-app: radial-gradient(135deg, #0A1128 0%, #101F42 100%);
+  --bg-app-color: #0A1128;
+  --bg-app-image: radial-gradient(135deg, #0A1128 0%, #101F42 100%);
   --bg-card: rgba(255, 255, 255, 0.05);
   --border-card: 1px solid rgba(197, 168, 128, 0.25);
   --box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -31,7 +32,8 @@
   --font-title: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
   
-  --bg-app: #F8F9FA;
+  --bg-app-color: #F8F9FA;
+  --bg-app-image: none;
   --bg-card: #FFFFFF;
   --border-card: 1px solid #E9ECEF;
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -57,7 +59,8 @@
   --font-title: 'Space Grotesk', sans-serif;
   --font-body: 'Rubik', sans-serif;
   
-  --bg-app: #FFFDF0;
+  --bg-app-color: #FFFDF0;
+  --bg-app-image: none;
   --bg-card: #FFFFFF;
   --border-card: 3px solid #0F2C59;
   --box-shadow: 6px 6px 0px #0F2C59;
@@ -87,10 +90,11 @@
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-app);
+  background-color: var(--bg-app-color);
+  background-image: var(--bg-app-image);
   color: var(--color-text-primary);
   min-height: 100vh;
-  transition: background var(--transition-speed) var(--transition-easing), color var(--transition-speed) var(--transition-easing);
+  transition: background-color var(--transition-speed) var(--transition-easing), color var(--transition-speed) var(--transition-easing);
   overflow-x: hidden;
 }
 
