@@ -1,24 +1,35 @@
 import React, { useState } from 'react';
-import { ThemeSwitcher } from './components/ThemeSwitcher';
-import './App.css';
+import { Layout } from './components/Layout';
+import { SaldosView } from './views/SaldosView';
+import { CuentasView } from './views/CuentasView';
+import { HistorialView } from './views/HistorialView';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('portal-theme') || 'glass');
+  const [currentTab, setCurrentTab] = useState('saldos');
+
+  const renderView = () => {
+    switch (currentTab) {
+      case 'saldos':
+        return <SaldosView />;
+      case 'cuentas':
+        return <CuentasView />;
+      case 'historial':
+        return <HistorialView />;
+      default:
+        return <SaldosView />;
+    }
+  };
 
   return (
-    <div className="app-container">
-      <div style={{ padding: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
-        <ThemeSwitcher currentTheme={theme} onChangeTheme={setTheme} />
-      </div>
-      
-      <main className="main-content card" style={{ margin: '1rem' }}>
-        <h1>Portal Club Náutico</h1>
-        <p>Selecciona un tema para ver los cambios de estilos en vivo.</p>
-        <button className="btn btn-primary" style={{ marginTop: '1rem' }}>
-          Botón de Prueba
-        </button>
-      </main>
-    </div>
+    <Layout 
+      currentTab={currentTab} 
+      onChangeTab={setCurrentTab}
+      theme={theme}
+      onChangeTheme={setTheme}
+    >
+      {renderView()}
+    </Layout>
   );
 }
 
