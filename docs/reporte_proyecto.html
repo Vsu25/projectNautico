@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Flujos y Arquitectura - Ecosistema FinTech</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --secondary: #0f172a;
+            --text-main: #334155;
+            --text-dark: #0f172a;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --accent: #2563eb;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        /* Cover Page styling */
+        .cover-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+            color: #ffffff;
+            text-align: center;
+            page-break-after: always;
+        }
+
+        .cover-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 2rem;
+            color: #3b82f6;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .cover-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #94a3b8;
+            margin-bottom: 4rem;
+        }
+
+        .cover-meta {
+            margin-top: auto;
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Document container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            page-break-after: always;
+        }
+
+        .section:last-child {
+            page-break-after: avoid;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 1.8rem;
+            background-color: var(--primary-light);
+            margin-right: 0.75rem;
+            border-radius: 4px;
+        }
+
+        /* Flow and image styles */
+        .diagram-container {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Cards and lists */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .alert-box {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .alert-box h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .step-list {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .step-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background-color: #ffffff;
+                font-size: 11pt;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .cover-page {
+                height: 99vh; /* slight offset to prevent blank page */
+            }
+
+            .diagram-container {
+                box-shadow: none;
+                background-color: #ffffff;
+                border: 1px solid #cbd5e1;
+                page-break-inside: avoid;
+            }
+
+            .card {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            .alert-box {
+                page-break-inside: avoid;
+            }
+
+            /* Prevent orphans and widows */
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+
+            p, li {
+                orphans: 3;
+                widows: 3;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <div class="cover-page">
+        <div class="cover-logo">Cuenta Club Social</div>
+        <h1 class="cover-title">Ecosistema FinTech</h1>
+        <div class="cover-subtitle">Manual de Flujos de Trabajo y Arquitectura (Fase 1 - MVP)</div>
+        <div class="cover-meta">
+            <div><strong>Versión:</strong> 3.0 (Enterprise)</div>
+            <div><strong>Fecha:</strong> 23 de Mayo, 2026</div>
+            <div><strong>Preparado por:</strong> Antigravity Pair Programmer</div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- SECCIÓN 1: FLUJO GENERAL -->
+        <div class="section">
+            <h2 class="section-title">1. Flujo General del Sistema</h2>
+            <p>El Ecosistema FinTech interactúa con el sistema del club existente y las entidades financieras para procesar consumos y conciliar pagos. El siguiente diagrama de secuencia ilustra el ciclo de vida completo de un pedido desde su carga externa hasta su conciliación por parte del socio o auditoría:</p>
+            
+            <div class="diagram-container">
+                <img src="assets/diag_sequence.svg" alt="Diagrama de Secuencia de Negocio">
+            </div>
+
+            <h3>Explicación del Proceso</h3>
+            <ol class="step-list">
+                <li>
+                    <span class="step-title">Sincronización Inicial (Fase 1 - ETL):</span> 
+                    El sistema actual del club inyecta directamente en la base de datos de Supabase los socios autorizados, sus límites de crédito y los consumos/pedidos pendientes de pago generados en las instalaciones (restaurante, piscina, etc.).
+                </li>
+                <li>
+                    <span class="step-title">Consulta de Deudas:</span> 
+                    El socio inicia sesión de forma segura y visualiza en su dashboard el listado de pedidos pendientes indexados a Dólares (USD).
+                </li>
+                <li>
+                    <span class="step-title">Opción A - Pago con Crédito del Club (USD):</span> 
+                    El socio puede optar por amortizar su pedido cargándolo a su línea de crédito autorizada. Esto marca el pedido como pagado y acumula saldo deudor en su cuenta de crédito, la cual amortizará en un solo reporte de pago posterior.
+                </li>
+                <li>
+                    <span class="step-title">Opción B - Pago Directo (Transferencia / Pago Móvil VES):</span> 
+                    El socio realiza la transferencia en Bolívares (VES) y la reporta en el portal ingresando el banco emisor, teléfono, referencia, monto y fecha de pago.
+                </li>
+                <li>
+                    <span class="step-title">Conciliación:</span> 
+                    El motor de base de datos ejecuta el cruce contra las transacciones bancarias del club. Si hay match, se auto-aprueba. De lo contrario, se envía a la cola de auditoría manual.
+                </li>
+            </ol>
+        </div>
+
+        <!-- SECCIÓN 2: BASE DE DATOS Y ERD -->
+        <div class="section">
+            <h2 class="section-title">2. Estructura y Modelo de Datos (ERD)</h2>
+            <p>La base de datos de Supabase (PostgreSQL) garantiza la integridad relacional de los registros, previene el doble reporte de transacciones y permite una segregación de accesos estricta (RLS).</p>
+
+            <div class="diagram-container">
+                <img src="assets/diag_erd.svg" alt="Diagrama Entidad Relación (ERD)">
+            </div>
+
+            <h3>Estructura de Datos Detallada</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Cuentas de Crédito y Pedidos</h4>
+                    <p>Las tablas <code>credit_accounts</code> y <code>purchases_orders</code> almacenan los límites de crédito en dólares, los balances consumidos y los consumos individuales que dan origen a las deudas del socio.</p>
+                </div>
+                <div class="card">
+                    <h4>Conciliación y Auditoría</h4>
+                    <p>Las tablas <code>payment_tickets</code> y <code>bank_transactions_mock</code> representan el núcleo del motor. Su restricción de clave única compuesta por Banco + Referencia bloquea cualquier intento de doble gasto o fraude.</p>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                <h4>Precisión Decimal Estricta (NUMERIC 15,2)</h4>
+                <p>Todas las transacciones de saldo, tasas de cambio y montos de pago en Bolívares (VES) y Dólares (USD) utilizan tipos de datos <code>NUMERIC(15,2)</code> a nivel de base de datos. Esto elimina la imprecisión del punto flotante en centavos, garantizando cumplimiento con estándares contables de auditoría.</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: MOTOR DE CONCILIACIÓN -->
+        <div class="section">
+            <h2 class="section-title">3. Motor de Conciliación Pasiva y Flujo de Excepciones</h2>
+            <p>El motor compara automáticamente los reportes digitales del socio con las transacciones bancarias del club importadas vía extractos CSV o transacciones de prueba simuladas.</p>
+
+            <div class="diagram-container">
+                <img src="assets/diag_reconciliation.svg" alt="Flujo del Motor de Conciliación">
+            </div>
+
+            <h3>Reglas de Negocio del Motor</h3>
+            <ol class="step-list">
+                <li>
+                    <span class="step-title">Cruce Exacto (Auto-Aprobado):</span> 
+                    El sistema verifica coincidencia exacta de Referencia y Banco de Origen. Adicionalmente, el monto VES debe coincidir exactamente y la fecha debe estar en un rango de ±2 días (para capturar demoras en transferencias de fin de semana).
+                </li>
+                <li>
+                    <span class="step-title">Cola de Auditoría (Pending Audit):</span> 
+                    Si falla alguna condición (error tipográfico del socio, api caída, centavos de diferencia), el ticket pasa a <code>pending_audit</code> para revisión del Staff.
+                </li>
+                <li>
+                    <span class="step-title">Mecanismo de Corrección:</span> 
+                    El socio puede corregir su reporte directamente mientras esté pendiente. Si edita, la conciliación automática se ejecuta nuevamente en tiempo real. Si cancela, el reporte cambia a <code>cancelled</code> y libera el pedido.
+                </li>
+                <li>
+                    <span class="step-title">Resolución Humana:</span> 
+                    El auditor puede rechazar el ticket (añadiendo el motivo) o corregir la referencia manualmente tras compararla con su extracto y aprobar el pago, generando un log obligatorio en <code>audit_logs</code>.
+                </li>
+            </ol>
+        </div>
+
+        <!-- SECCIÓN 4: SEGURIDAD Y CUMPLIMIENTO -->
+        <div class="section">
+            <h2 class="section-title">4. Roles y Cumplimiento Normativo (SUDEBAN)</h2>
+            <p>De acuerdo con la Resolución No. 001-21 de SUDEBAN, la plataforma opera bajo estrictas normativas de segregación de funciones, registro inalterable y seguridad lógica:</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Segregación de Roles (RBAC)</h4>
+                    <ul>
+                        <li><strong>Socio:</strong> Acceso exclusivo a sus propios datos, sin lectura de logs ni extractos bancarios.</li>
+                        <li><strong>Auditor (Staff):</strong> Capacidad operativa de aprobar o rechazar manualmente tickets. Acceso bloqueado a la tabla de logs de auditoría global.</li>
+                        <li><strong>Head Admin:</strong> Acceso total de control, edición de límites de crédito, lectura exclusiva de logs de auditoría y aprobación de tasas de cambio.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Cumplimiento SUDEBAN</h4>
+                    <ul>
+                        <li><strong>Logs Inmutables:</strong> La tabla <code>audit_logs</code> tiene prohibido todo tipo de actualización (<code>UPDATE</code>) o eliminación (<code>DELETE</code>).</li>
+                        <li><strong>Tracking de IP:</strong> Toda intervención humana (aprobación manual de pagos, cambios de límites o tasas) registra de forma obligatoria la IP del operador y una marca de tiempo UTC.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert-box" style="background-color: #f0fdf4; border-left-color: #22c55e;">
+                <h4>Integración de Soporte Contextual por WhatsApp</h4>
+                <p>Ante discrepancias o rechazos de pago, el socio dispone de un botón de soporte directo. El sistema genera un enlace pre-rellenado que envía a la línea de WhatsApp del club un mensaje formateado con todos los metadatos de la transacción (Socio, Cédula, Referencia, Banco, Fecha y Monto). Esto permite al staff contrastar al instante la información contra el capture de pantalla del cliente.</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
