@@ -1,0 +1,204 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Base styles for desktop sidebar */
+.sidebar {
+  display: none;
+  width: 280px;
+  background: var(--bg-card);
+  border-right: var(--border-card);
+  backdrop-filter: var(--backdrop-blur);
+  padding: 2rem 1.5rem;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    display: flex;
+  }
+}
+
+.sidebar-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.logo-placeholder {
+  width: 64px;
+  height: 64px;
+  background: var(--color-accent);
+  color: #0F2C59;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0 auto 1rem;
+}
+
+.sidebar-header h2 {
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+}
+
+.user-name {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-title);
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all var(--transition-speed) var(--transition-easing);
+  text-align: left;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+}
+
+.nav-btn.active {
+  background: var(--color-accent);
+  color: #0F2C59;
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.content-area {
+  padding: 1.5rem;
+  flex: 1;
+  padding-bottom: calc(80px + 1.5rem); /* Space for mobile nav */
+}
+
+@media (min-width: 768px) {
+  .content-area {
+    padding: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+/* Mobile Header */
+.mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border-bottom: var(--border-card);
+  backdrop-filter: var(--backdrop-blur);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .mobile-header {
+    display: none;
+  }
+}
+
+.mobile-header .logo-placeholder {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.bcv-rate {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* Mobile Bottom Navigation */
+.bottom-nav {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border-top: var(--border-card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  padding: 0.5rem 1rem;
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  justify-content: space-around;
+  z-index: 20;
+}
+
+@media (min-width: 768px) {
+  .bottom-nav {
+    display: none;
+  }
+}
+
+.bottom-nav .nav-btn {
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.bottom-nav .nav-btn.active {
+  background: transparent;
+  color: var(--color-accent);
+}
+
+.bottom-nav .nav-btn.active .icon {
+  background: var(--color-accent);
+  color: #0F2C59;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Brutalist specifics */
+[data-theme="brutalist"] .sidebar, 
+[data-theme="brutalist"] .mobile-header, 
+[data-theme="brutalist"] .bottom-nav {
+  box-shadow: 4px 4px 0px #0F2C59;
+}
