@@ -130,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--color-accent);
   color: #0F2C59;
   box-shadow: var(--btn-shadow);
-  border: [data-theme="brutalist"] ? 3px solid #0F2C59 : none; /* Handled in brutalist specific below */
+  border: none;
 }
 
 [data-theme="brutalist"] .btn-primary {
@@ -140,7 +140,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary:hover {
   background-color: var(--color-accent-hover);
   transform: var(--btn-transform-hover);
-  box-shadow: [data-theme="brutalist"] ? 5px 5px 0px #0F2C59 : var(--btn-shadow);
+  box-shadow: var(--btn-shadow);
 }
 [data-theme="brutalist"] .btn-primary:hover {
   box-shadow: 5px 5px 0px #0F2C59;
@@ -148,7 +148,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-primary:active {
   transform: var(--btn-transform-active);
-  box-shadow: [data-theme="brutalist"] ? 1px 1px 0px #0F2C59 : none;
+  box-shadow: none;
 }
 [data-theme="brutalist"] .btn-primary:active {
   box-shadow: 1px 1px 0px #0F2C59;
