@@ -1,0 +1,41 @@
+.theme-switcher {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  border: var(--border-card);
+  box-shadow: var(--box-shadow);
+  width: fit-content;
+}
+
+.theme-switcher button {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  padding: 0.5rem 1rem;
+  border-radius: calc(var(--border-radius) / 2);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.theme-switcher button:hover {
+  color: var(--color-text-primary);
+}
+
+.theme-switcher button.active {
+  background: var(--color-accent);
+  color: #0F2C59;
+  font-weight: 600;
+}
+
+[data-theme="brutalist"] .theme-switcher button {
+  border: 2px solid transparent;
+}
+
+[data-theme="brutalist"] .theme-switcher button.active {
+  border: 2px solid #0F2C59;
+  box-shadow: 2px 2px 0px #0F2C59;
+}
