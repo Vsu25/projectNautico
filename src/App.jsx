@@ -85,6 +85,40 @@ const initialPurchases = [
       { name: 'Mantenimiento Muelle Principal', qty: 1, price: 400.00 },
       { name: 'Servicio de Boyas', qty: 1, price: 50.00 }
     ]
+  },
+  { 
+    id: 'INV-106', 
+    user_id: 'V-12.345.678', 
+    amount_usd: 75.00, 
+    description: 'Consumo Rest. La Marina', 
+    status: 'pending', 
+    created_at: '2026-05-24',
+    items: [
+      { name: 'Parrilla de Carne Especial', qty: 1, price: 50.00 },
+      { name: 'Bebidas Premium', qty: 2, price: 12.50 }
+    ]
+  },
+  { 
+    id: 'INV-107', 
+    user_id: 'V-12.345.678', 
+    amount_usd: 120.00, 
+    description: 'Mantenimiento Embarcación', 
+    status: 'pending', 
+    created_at: '2026-05-20',
+    items: [
+      { name: 'Servicio Mecánico Express', qty: 1, price: 120.00 }
+    ]
+  },
+  { 
+    id: 'INV-108', 
+    user_id: 'V-12.345.678', 
+    amount_usd: 35.00, 
+    description: 'Invitaciones Piscina Especial', 
+    status: 'pending', 
+    created_at: '2026-05-18',
+    items: [
+      { name: 'Pase de Invitado', qty: 7, price: 5.00 }
+    ]
   }
 ];
 
