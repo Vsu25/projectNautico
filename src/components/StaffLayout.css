@@ -180,6 +180,16 @@
     gap: 1.5rem;
   }
 
+  /* Glass Theme mobile dropdown override for opacity and frosted blur */
+  [data-theme="glass"] .nav-menu {
+    background: rgba(10, 17, 40, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+  [data-theme="glass"][data-mode="light"] .nav-menu {
+    background: rgba(226, 241, 255, 0.96) !important;
+  }
+
   .nav-menu.open {
     display: flex;
     box-shadow: var(--box-shadow);
