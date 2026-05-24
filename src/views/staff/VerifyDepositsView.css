@@ -1,0 +1,222 @@
+.view-header {
+  margin-bottom: 2rem;
+}
+
+.table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th, .admin-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: var(--border-card);
+}
+
+.admin-table th {
+  font-family: var(--font-title);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.member-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.member-id {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.amount-cell {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+.btn-view-receipt {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.btn-view-receipt:hover {
+  background: var(--color-accent);
+  color: #0F2C59;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-table {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.btn-approve {
+  background: var(--color-success);
+  color: #FFFFFF;
+}
+
+.btn-approve:hover {
+  filter: brightness(1.1);
+}
+
+.btn-reject {
+  background: var(--color-danger);
+  color: #FFFFFF;
+}
+
+.btn-reject:hover {
+  filter: brightness(1.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.big-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: var(--border-card);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  max-width: 500px;
+  width: 100%;
+  padding: 1.5rem;
+  backdrop-filter: var(--backdrop-blur);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  border-bottom: var(--border-card);
+  padding-bottom: 0.75rem;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.mock-receipt-image {
+  margin-top: 1rem;
+  background: #FFFDF0;
+  color: #0F2C59;
+  border: 3px solid #0F2C59;
+  padding: 1.5rem;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.receipt-header {
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px dashed #0F2C59;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.receipt-stamp {
+  margin-top: 1.5rem;
+  border: 2px solid #2F9E44;
+  color: #2F9E44;
+  padding: 0.25rem;
+  text-align: center;
+  font-weight: 700;
+  transform: rotate(-5deg);
+}
+
+.reject-textarea {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--color-text-primary);
+  border: var(--border-card);
+  border-radius: var(--border-radius);
+  outline: none;
+  font-family: inherit;
+}
+
+[data-theme="flat"] .reject-textarea {
+  background: #FFFFFF;
+  color: #0F2C59;
+  border: 1px solid #CED4DA;
+}
+[data-theme="brutalist"] .reject-textarea {
+  border: 3px solid #0F2C59;
+  background: #FFFFFF;
+  color: #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .reject-textarea {
+  border: 3px solid #FFFFFF;
+  background: #111111;
+  color: #FFFFFF;
+}
