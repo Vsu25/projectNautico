@@ -37,8 +37,8 @@
   --backdrop-blur: blur(12px);
   --color-text-primary: #0A1128;
   --color-text-secondary: #4A5568;
-  --color-accent: #C5A880;
-  --color-accent-hover: #A3855E;
+  --color-accent: #8E7048;
+  --color-accent-hover: #7A5F3D;
   --color-danger: #E03131;
   --color-success: #2F9E44;
   --color-warning: #F08C00;
@@ -62,11 +62,11 @@
   --backdrop-blur: none;
   --color-text-primary: #0F2C59;
   --color-text-secondary: #495057;
-  --color-accent: #C5A880;
-  --color-accent-hover: #B2956D;
+  --color-accent: #7D6139;
+  --color-accent-hover: #6B5230;
   --color-danger: #DC3545;
   --color-success: #198754;
-  --color-warning: #FFC107;
+  --color-warning: #B25E00;
   --transition-speed: 0.15s;
   --transition-easing: ease-in-out;
   --border-radius: 8px;
@@ -324,4 +324,48 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-close:hover, .close-btn:hover {
   color: var(--color-danger) !important;
+}
+
+/* Global Bill Reason Box */
+.bill-reason-box {
+  background: rgba(197, 168, 128, 0.08);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+[data-theme="flat"] .bill-reason-box {
+  background: #F8F9FA;
+  border-left: 3px solid #0056b3;
+}
+
+[data-theme="brutalist"] .bill-reason-box {
+  background: transparent;
+  border: 2px solid #0F2C59;
+  border-left: 6px solid #0F2C59;
+}
+
+.reason-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.reason-text {
+  font-size: 1.05rem;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+[data-theme="flat"] .reason-text {
+  color: #212529;
+}
+
+[data-theme="brutalist"] .reason-text {
+  color: #0F2C59;
 }
