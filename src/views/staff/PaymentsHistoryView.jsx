@@ -118,7 +118,7 @@ export function PaymentsHistoryView({ deposits, purchases }) {
               <button className="btn-close" onClick={() => setSelectedPayment(null)}>×</button>
             </header>
             
-            <div className="modal-body" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+            <div className="modal-body">
               <div className="credit-summary card" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', marginBottom: '1.2rem', border: 'var(--border-card)' }}>
                 <h4 style={{ marginBottom: '0.8rem', color: 'var(--color-accent)' }}>Información del Ticket</h4>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', fontSize: '0.85rem' }}>

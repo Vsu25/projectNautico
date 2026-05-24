@@ -55,7 +55,7 @@ export function StaffLayout({ children, currentTab, onChangeTab, theme, onChange
         </div>
       </nav>
 
-      <main className="staff-main-container view-content-active">
+      <main className="staff-main-container">
         {children}
       </main>
     </div>

@@ -111,7 +111,7 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
               <h3>Comprobante & Detalle de Factura</h3>
               <button className="btn-close" onClick={() => setSelectedReceipt(null)}>×</button>
             </header>
-            <div className="modal-body text-center" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+            <div className="modal-body text-center">
               <p className="receipt-ref-label">Referencia: <code>{selectedReceipt.reference}</code></p>
               <div className="mock-receipt-image">
                 <div className="receipt-header">Banco Central</div>
