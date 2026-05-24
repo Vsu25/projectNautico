@@ -4,230 +4,346 @@
     <meta charset="UTF-8">
     <title>Reporte de Flujos y Arquitectura - Ecosistema FinTech</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --secondary: #0f172a;
-            --text-main: #334155;
-            --text-dark: #0f172a;
-            --bg-light: #f8fafc;
-            --border: #e2e8f0;
-            --accent: #2563eb;
-        }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+    
+    :root {
+        --primary: #0A1128;
+        --secondary: #4A5568;
+        --accent: #D4B26F;
+        --accent-dark: #B59353;
+        --bg-app: #FCFBF7;
+        --bg-card: #FFFFFF;
+        --border-card: 1px solid rgba(212, 178, 111, 0.25);
+        --text-main: #2D3748;
+        --text-dark: #0A1128;
+        --text-light: #718096;
+        --success: #2F9E44;
+        --success-light: #EBFBEE;
+        --info: #1E3A8A;
+        --info-light: #EFF6FF;
+    }
 
+    @page {
+        size: letter;
+        margin: 20mm;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-main);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-app);
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: 'Outfit', sans-serif;
+        color: var(--text-dark);
+        font-weight: 700;
+    }
+
+    /* Estilo de la Portada */
+    .cover-page {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+        box-sizing: border-box;
+        background: radial-gradient(135deg, #0A1128 0%, #101F42 100%);
+        color: #ffffff;
+        text-align: center;
+        position: relative;
+        border-bottom: 8px solid var(--accent);
+    }
+
+    .cover-page::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border: 1px solid rgba(212, 178, 111, 0.2);
+        pointer-events: none;
+    }
+
+    .cover-logo {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 2rem;
+        color: var(--accent);
+        font-family: 'Outfit', sans-serif;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(212, 178, 111, 0.3);
+        padding-bottom: 0.5rem;
+    }
+
+    .cover-title {
+        font-size: 3.8rem;
+        font-weight: 800;
+        margin: 0 0 1rem 0;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+    }
+
+    .cover-subtitle {
+        font-size: 1.4rem;
+        font-weight: 300;
+        color: #B0C4DE;
+        margin-bottom: 4rem;
+        max-width: 600px;
+    }
+
+    .cover-meta {
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.95rem;
+        color: #B0C4DE;
+    }
+
+    .container {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+
+    .section {
+        margin-bottom: 4rem;
+    }
+
+    .page-break {
+        page-break-after: always;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 0.5rem;
+        margin-bottom: 2rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+    }
+
+    .section-title::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 1.6rem;
+        background-color: var(--accent);
+        margin-right: 0.75rem;
+        border-radius: 2px;
+    }
+
+    .diagram-container {
+        background-color: #ffffff;
+        border: var(--border-card);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .diagram-container img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .card {
+        background-color: var(--bg-card);
+        border: var(--border-card);
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+    }
+
+    .card h4 {
+        margin-top: 0;
+        color: var(--primary);
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(212, 178, 111, 0.15);
+        padding-bottom: 0.4rem;
+    }
+
+    .alert-box {
+        background-color: var(--info-light);
+        border-left: 4px solid var(--accent);
+        padding: 1.5rem;
+        border-radius: 0 8px 8px 0;
+        margin: 1.5rem 0;
+    }
+
+    .alert-box h4 {
+        margin-top: 0;
+        color: var(--info);
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .step-list {
+        margin: 1.5rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .step-list li {
+        margin-bottom: 0.8rem;
+    }
+
+    .step-title {
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    /* Brochure Específico */
+    .brochure-container {
+        padding: 2rem;
+        background: #ffffff;
+        border: 2px solid var(--accent);
+        border-radius: 16px;
+        margin-top: 2rem;
+    }
+
+    .brochure-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .brochure-title {
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .brochure-subtitle {
+        font-size: 1.1rem;
+        color: var(--secondary);
+        font-weight: 400;
+    }
+
+    .brochure-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .brochure-column {
+        padding: 1rem;
+    }
+
+    .brochure-column.left {
+        border-right: 1px dashed rgba(212, 178, 111, 0.4);
+    }
+
+    .brochure-column h3 {
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .brochure-item {
+        margin-bottom: 1.5rem;
+    }
+
+    .brochure-item h5 {
+        font-size: 1rem;
+        color: var(--primary);
+        margin: 0 0 0.3rem 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .brochure-item h5::before {
+        content: "◆";
+        color: var(--accent);
+        margin-right: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .brochure-item p {
+        font-size: 0.9rem;
+        color: var(--secondary);
+        margin: 0;
+    }
+
+    .brochure-footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(212, 178, 111, 0.2);
+        font-size: 0.95rem;
+        color: var(--secondary);
+        font-style: italic;
+    }
+
+    /* Estilos de Impresión */
+    @media print {
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: var(--text-main);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
             background-color: #ffffff;
+            font-size: 10pt;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Outfit', sans-serif;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        /* Cover Page styling */
-        .cover-page {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 3rem;
-            box-sizing: border-box;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
-            color: #ffffff;
-            text-align: center;
-            page-break-after: always;
-        }
-
-        .cover-logo {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            margin-bottom: 2rem;
-            color: #3b82f6;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .cover-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 0 0 1rem 0;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
-
-        .cover-subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #94a3b8;
-            margin-bottom: 4rem;
-        }
-
-        .cover-meta {
-            margin-top: auto;
-            border-top: 1px solid #334155;
-            padding-top: 2rem;
-            width: 80%;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-
-        /* Document container */
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .section {
-            margin-bottom: 4rem;
-            page-break-after: always;
-        }
-
-        .section:last-child {
-            page-break-after: avoid;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-        }
-
-        .section-title::before {
-            content: "";
-            display: inline-block;
-            width: 8px;
-            height: 1.8rem;
-            background-color: var(--primary-light);
-            margin-right: 0.75rem;
-            border-radius: 4px;
-        }
-
-        /* Flow and image styles */
-        .diagram-container {
-            background-color: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-        }
-
-        .diagram-container img {
             max-width: 100%;
-            height: auto;
-            display: block;
+            padding: 0;
         }
 
-        /* Cards and lists */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+        .cover-page {
+            height: 95vh;
+            border-bottom: 6px solid var(--accent);
+        }
+
+        .diagram-container {
+            box-shadow: none;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            page-break-inside: avoid;
         }
 
         .card {
-            background-color: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
-        }
-
-        .card h4 {
-            margin-top: 0;
-            color: var(--primary);
-            margin-bottom: 0.75rem;
+            box-shadow: none;
+            page-break-inside: avoid;
         }
 
         .alert-box {
-            background-color: #eff6ff;
-            border-left: 4px solid var(--primary-light);
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
+            page-break-inside: avoid;
         }
 
-        .alert-box h4 {
-            margin-top: 0;
-            color: var(--primary);
+        .brochure-container {
+            page-break-inside: avoid;
         }
 
-        .step-list {
-            margin: 1.5rem 0;
-            padding-left: 1.5rem;
+        h2, h3, h4 {
+            page-break-after: avoid;
         }
 
-        .step-list li {
-            margin-bottom: 0.75rem;
+        p, li {
+            orphans: 3;
+            widows: 3;
         }
-
-        .step-title {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        /* Print styles */
-        @media print {
-            body {
-                background-color: #ffffff;
-                font-size: 11pt;
-            }
-
-            .container {
-                max-width: 100%;
-                padding: 0;
-            }
-
-            .cover-page {
-                height: 99vh; /* slight offset to prevent blank page */
-            }
-
-            .diagram-container {
-                box-shadow: none;
-                background-color: #ffffff;
-                border: 1px solid #cbd5e1;
-                page-break-inside: avoid;
-            }
-
-            .card {
-                box-shadow: none;
-                page-break-inside: avoid;
-            }
-
-            .alert-box {
-                page-break-inside: avoid;
-            }
-
-            /* Prevent orphans and widows */
-            h2, h3, h4 {
-                page-break-after: avoid;
-            }
-
-            p, li {
-                orphans: 3;
-                widows: 3;
-            }
-        }
+    }
     </style>
 </head>
 <body>
