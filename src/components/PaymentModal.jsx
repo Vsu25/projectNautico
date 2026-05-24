@@ -45,6 +45,11 @@ export function PaymentModal({ bill, bcvRate, onConfirm, onClose }) {
             <h3 className="step-title" style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '1rem', borderBottom: '1px solid rgba(197, 168, 128, 0.2)', paddingBottom: '0.5rem' }}>
               Paso 1: Detalles de Facturación
             </h3>
+
+            <div className="billing-reason-card" style={{ background: 'rgba(0, 0, 0, 0.2)', padding: '0.8rem 1rem', borderRadius: '8px', border: 'var(--border-card)', marginBottom: '1.25rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>Motivo del Cargo / Por qué se factura:</span>
+              <strong style={{ fontSize: '1.05rem', color: 'var(--color-accent)' }}>{bill.description}</strong>
+            </div>
             
             <div className="table-responsive" style={{ margin: '1rem 0' }}>
               <table className="mini-trace-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
@@ -67,7 +72,7 @@ export function PaymentModal({ bill, bcvRate, onConfirm, onClose }) {
                   ))}
                   <tr style={{ fontWeight: 'bold', borderTop: '2px solid var(--color-border)' }}>
                     <td colSpan="3" style={{ padding: '0.6rem' }}>Total USD</td>
-                    <td style={{ padding: '0.6rem', textAlign: 'right' }}>${bill.amountUsd.toFixed(2)}</td>
+                    <td style={{ padding: '0.6rem', textAlign: 'right' }}>${bill.amountUsd.toFixed(2)} REF</td>
                   </tr>
                   <tr style={{ fontWeight: 'bold', color: 'var(--color-accent)' }}>
                     <td colSpan="3" style={{ padding: '0.6rem' }}>Total VES (BCV {bcvRate})</td>
@@ -89,6 +94,22 @@ export function PaymentModal({ bill, bcvRate, onConfirm, onClose }) {
             <h3 className="step-title" style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '1rem', borderBottom: '1px solid rgba(197, 168, 128, 0.2)', paddingBottom: '0.5rem' }}>
               Paso 2: Datos de Transferencia
             </h3>
+
+            <div className="bcv-rate-highlight" style={{ background: 'rgba(197, 168, 128, 0.1)', border: '1px solid var(--color-accent)', padding: '0.8rem 1rem', borderRadius: '8px', marginBottom: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
+                <span>Monto de Referencia:</span>
+                <strong>${bill.amountUsd.toFixed(2)} REF</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
+                <span>Tasa Oficial BCV actual:</span>
+                <strong>Bs. {bcvRate.toFixed(2)}</strong>
+              </div>
+              <hr style={{ border: '0', borderTop: '1px solid rgba(197, 168, 128, 0.2)', margin: '0.4rem 0' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1rem', fontWeight: 'bold' }}>
+                <span>Monto Equivalente a Transferir:</span>
+                <span style={{ color: 'var(--color-accent)' }}>Bs. {(bill.amountUsd * bcvRate).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+              </div>
+            </div>
 
             <div className="form-group">
               <label>Método de Pago</label>
