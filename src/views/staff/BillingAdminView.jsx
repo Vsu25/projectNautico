@@ -64,12 +64,12 @@ export function BillingAdminView({ members, purchases }) {
             <tbody>
               {purchases.map(p => (
                 <tr key={p.id} onClick={() => setSelectedInvoice(p)} style={{ cursor: 'pointer' }} title="Haga clic para ver detalles de artículos">
-                  <td><code>{p.id}</code></td>
-                  <td><code>{p.user_id}</code></td>
-                  <td>{p.created_at}</td>
-                  <td>{p.description}</td>
-                  <td className="font-weight-700">${p.amount_usd.toFixed(2)}</td>
-                  <td>
+                  <td data-label="Factura ID"><code>{p.id}</code></td>
+                  <td data-label="Cédula Socio"><code>{p.user_id}</code></td>
+                  <td data-label="Fecha Sincronización">{p.created_at}</td>
+                  <td data-label="Concepto / Descripción">{p.description}</td>
+                  <td data-label="Monto (USD)" className="font-weight-700">${p.amount_usd.toFixed(2)}</td>
+                  <td data-label="Estado de Liquidación">
                     <span className={`badge badge-${p.status}`}>
                       {p.status === 'pending' && 'Pendiente de Pago'}
                       {p.status === 'paid_with_transfer' && 'Pagado Directo'}

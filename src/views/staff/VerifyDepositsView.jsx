@@ -72,21 +72,21 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
               <tbody>
                 {pendingDeposits.map(dep => (
                   <tr key={dep.id}>
-                    <td>
+                    <td data-label="Socio">
                       <div className="member-cell">
                         <span className="member-name">{dep.name}</span>
                         <span className="member-id">{dep.memberId}</span>
                       </div>
                     </td>
-                    <td>{dep.date}</td>
-                    <td className="amount-cell">${dep.amount.toFixed(2)}</td>
-                    <td><code>{dep.reference}</code></td>
-                    <td>
+                    <td data-label="Fecha">{dep.date}</td>
+                    <td data-label="Monto" className="amount-cell">${dep.amount.toFixed(2)}</td>
+                    <td data-label="Referencia"><code>{dep.reference}</code></td>
+                    <td data-label="Comprobante">
                       <button className="btn-view-receipt" onClick={() => setSelectedReceipt(dep)}>
                         📄 Ver Recibo
                       </button>
                     </td>
-                    <td>
+                    <td data-label="Acciones">
                       <div className="action-buttons">
                         <button className="btn-table btn-approve" onClick={() => handleApprove(dep)}>
                           ✓ Aprobar

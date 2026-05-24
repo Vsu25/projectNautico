@@ -75,16 +75,16 @@ export function PaymentsHistoryView({ deposits, purchases }) {
             <tbody>
               {filteredDeposits.map(dep => (
                 <tr key={dep.id}>
-                  <td><code>{dep.reference}</code></td>
-                  <td>
+                  <td data-label="Referencia"><code>{dep.reference}</code></td>
+                  <td data-label="Socio">
                     <div className="member-cell">
                       <span className="member-name">{dep.name}</span>
                       <span className="member-id">{dep.memberId}</span>
                     </div>
                   </td>
-                  <td>{dep.date}</td>
-                  <td className="amount-cell">${dep.amount.toFixed(2)}</td>
-                  <td>
+                  <td data-label="Fecha">{dep.date}</td>
+                  <td data-label="Monto" className="amount-cell">${dep.amount.toFixed(2)}</td>
+                  <td data-label="Estado">
                     <span className={`badge badge-${dep.status.toLowerCase()}`}>
                       {dep.status === 'Pending' && 'Pendiente'}
                       {dep.status === 'auto_approved' && 'Automático'}
@@ -94,7 +94,7 @@ export function PaymentsHistoryView({ deposits, purchases }) {
                       {dep.status === 'cancelled' && 'Cancelado'}
                     </span>
                   </td>
-                  <td>
+                  <td data-label="Acciones">
                     <button 
                       className="btn-view-receipt" 
                       onClick={() => setSelectedPayment(dep)}

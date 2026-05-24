@@ -441,3 +441,187 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 4px 4px 0px #FFD93D;
   transform: translate(-2px, -2px);
 }
+
+/* Global Search and Filter Controls Layout */
+.directory-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  border: var(--border-card);
+  background: var(--bg-card);
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  font-family: var(--font-body);
+}
+
+[data-theme="flat"] .search-input {
+  background: #FFFFFF;
+  color: #0F2C59;
+  border: 1px solid #CED4DA;
+}
+
+[data-theme="flat"][data-mode="dark"] .search-input {
+  background: #2D2D2D;
+  color: var(--color-text-primary);
+  border: 1px solid #495057;
+}
+
+[data-theme="brutalist"] .search-input {
+  border: 3px solid #0F2C59;
+  background: #FFFFFF;
+  color: #0F2C59;
+}
+
+[data-theme="brutalist"][data-mode="dark"] .search-input {
+  border: 3px solid #FFFFFF;
+  background: #111111;
+  color: #FFFFFF;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  border: var(--border-card);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+  font-family: var(--font-title);
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+}
+
+.filter-btn.active {
+  background: var(--color-accent);
+  color: #0F2C59;
+}
+
+[data-theme="brutalist"] .filter-btn.active {
+  border: 2px solid #0F2C59;
+  box-shadow: 2px 2px 0px #0F2C59;
+}
+
+[data-theme="brutalist"][data-mode="dark"] .filter-btn.active {
+  border: 2px solid #FFFFFF;
+  box-shadow: 2px 2px 0px #FFD93D;
+  color: #000000;
+}
+
+/* Responsive Container and Card Spacing */
+@media (max-width: 768px) {
+  .staff-main-container {
+    padding: 1rem 0.75rem !important;
+  }
+
+  .directory-controls {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .search-input {
+    width: 100% !important;
+  }
+  .filter-buttons {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  /* Responsive Admin Table (Stacked Card Layout) */
+  .admin-table, 
+  .admin-table thead, 
+  .admin-table tbody, 
+  .admin-table th, 
+  .admin-table td, 
+  .admin-table tr { 
+    display: block !important; 
+  }
+  
+  /* Hide table headers (but keep screen-reader friendly) */
+  .admin-table thead tr { 
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+  }
+  
+  .admin-table tr { 
+    border: 1px solid var(--border-card) !important;
+    margin-bottom: 1rem !important;
+    background: var(--bg-card) !important;
+    border-radius: var(--border-radius) !important;
+    padding: 1rem !important;
+    box-shadow: var(--box-shadow) !important;
+  }
+  
+  .admin-table td { 
+    border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    position: relative !important;
+    padding: 0.75rem 0 !important;
+    padding-left: 50% !important; 
+    text-align: right !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    min-height: 2.5rem !important;
+  }
+
+  [data-theme="flat"] .admin-table td {
+    border-bottom: 1px solid #E9ECEF !important;
+  }
+
+  .admin-table td:last-child {
+    border-bottom: none !important;
+  }
+  
+  .admin-table td:before { 
+    content: attr(data-label);
+    position: absolute !important;
+    left: 0 !important;
+    width: 45% !important; 
+    white-space: nowrap !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    color: var(--color-text-secondary) !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase !important;
+  }
+
+  /* Alignment adjustments inside stacked table rows */
+  .admin-table td .member-cell {
+    align-items: flex-end !important;
+    text-align: right !important;
+  }
+
+  .admin-table td .action-buttons {
+    justify-content: flex-end !important;
+  }
+
+  /* Make table wrapper card transparent on mobile */
+  .table-card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
+

@@ -128,18 +128,18 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
             <tbody>
               {filteredMembers.map(m => (
                 <tr key={m.id}>
-                  <td><code>{m.id}</code></td>
-                  <td className="font-weight-600">{m.name}</td>
-                  <td>
+                  <td data-label="Cédula"><code>{m.id}</code></td>
+                  <td data-label="Nombre" className="font-weight-600">{m.name}</td>
+                  <td data-label="Estado">
                     <span className={`badge badge-${m.status.toLowerCase()}`}>
                       {m.status === 'Active' ? 'Activo' : 'Suspendido'}
                     </span>
                   </td>
-                  <td>${m.balance.toFixed(2)}</td>
-                  <td className={m.debt > 0 ? 'text-danger font-weight-700' : ''}>
+                  <td data-label="Límite de Crédito">${m.balance.toFixed(2)}</td>
+                  <td data-label="Deuda Pendiente" className={m.debt > 0 ? 'text-danger font-weight-700' : ''}>
                     ${m.debt.toFixed(2)}
                   </td>
-                  <td>
+                  <td data-label="Detalles">
                     <button className="btn-table btn-view-details" onClick={() => setViewingDetails(m)}>
                       👁 Ver Detalles
                     </button>
