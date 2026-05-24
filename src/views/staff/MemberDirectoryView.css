@@ -145,6 +145,45 @@
   font-family: var(--font-title);
 }
 
+/* Detail Drawer Additions */
+.detail-drawer {
+  max-width: 550px;
+}
+
+.drawer-scroll-body {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.mini-trace-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.mini-trace-table th, .mini-trace-table td {
+  padding: 0.5rem;
+  border-bottom: var(--border-card);
+  text-align: left;
+}
+
+.mini-trace-table th {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot-pending { background: var(--color-warning); }
+.dot-paid_with_transfer, .dot-paid_with_credit { background: var(--color-success); }
+
 @media (max-width: 768px) {
   .directory-controls {
     flex-direction: column;

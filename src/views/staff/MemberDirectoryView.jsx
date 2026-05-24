@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './MemberDirectoryView.css';
 
-export function MemberDirectoryView({ members, setMembers }) {
+export function MemberDirectoryView({ members, setMembers, purchases, deposits }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('All'); // 'All' | 'Active' | 'Suspended' | 'InDebt'
+  const [statusFilter, setStatusFilter] = useState('All');
   const [viewingDetails, setViewingDetails] = useState(null);
+  const [newCreditLimit, setNewCreditLimit] = useState('');
 
   const toggleStatus = (memberId) => {
     setMembers(prev => prev.map(m => {
@@ -24,7 +25,28 @@ export function MemberDirectoryView({ members, setMembers }) {
     }
   };
 
-  // Filter logic
+  const handleUpdateCreditLimit = (e) => {
+    e.preventDefault();
+    if (!newCreditLimit || !viewingDetails) return;
+    const limitNum = parseFloat(newCreditLimit);
+    
+    setMembers(prev => prev.map(m => {
+      if (m.id === viewingDetails.id) {
+        return {
+          ...m,
+          balance: limitNum
+        };
+      }
+      return m;
+    }));
+    
+    setViewingDetails(prev => ({
+      ...prev,
+      balance: limitNum
+    }));
+    setNewCreditLimit('');
+  };
+
   const filteredMembers = members.filter(m => {
     const matchesSearch = m.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           m.id.toLowerCase().includes(searchTerm.toLowerCase());
@@ -36,6 +58,9 @@ export function MemberDirectoryView({ members, setMembers }) {
 
     return matchesSearch && matchesStatus;
   });
+
+  const memberPurchases = viewingDetails ? purchases.filter(p => p.user_id === viewingDetails.id) : [];
+  const memberDeposits = viewingDetails ? deposits.filter(d => d.memberId === viewingDetails.id) : [];
 
   return (
     <div className="view-content-active">
@@ -116,12 +141,15 @@ export function MemberDirectoryView({ members, setMembers }) {
               <h3>Ficha del Socio</h3>
               <button className="btn-close" onClick={() => setViewingDetails(null)}>×</button>
             </header>
-            <div className="modal-body">
+            <div className="modal-body drawer-scroll-body">
               <div className="member-profile-header">
                 <div className="profile-avatar">{viewingDetails.name[0]}</div>
                 <div>
                   <h4>{viewingDetails.name}</h4>
                   <p>{viewingDetails.id} • {viewingDetails.email}</p>
+                  <span className={`badge badge-${viewingDetails.status.toLowerCase()}`} style={{ display: 'inline-block', marginTop: '0.25rem' }}>
+                    {viewingDetails.status === 'Active' ? 'Activo' : 'Suspendido'}
+                  </span>
                 </div>
               </div>
 
@@ -131,21 +159,107 @@ export function MemberDirectoryView({ members, setMembers }) {
                   <strong className="stat-value">${viewingDetails.balance.toFixed(2)}</strong>
                 </div>
                 <div className="stat-item card">
-                  <span className="stat-label">Deuda Pendiente</span>
+                  <span className="stat-label">Saldo Deudor</span>
                   <strong className="stat-value text-danger">${viewingDetails.debt.toFixed(2)}</strong>
                 </div>
               </div>
 
-              <div className="actions-section">
-                <h5>Acciones Administrativas</h5>
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-                  <button 
-                    className={`btn ${viewingDetails.status === 'Active' ? 'btn-danger' : 'btn-primary'}`}
-                    onClick={() => toggleStatus(viewingDetails.id)}
-                  >
-                    {viewingDetails.status === 'Active' ? 'Suspender Socio' : 'Activar Socio'}
+              {/* Adjust Credit Limit Tool */}
+              <div className="admin-tool-card card" style={{ marginBottom: '1.5rem' }}>
+                <h5>Gestionar Línea de Crédito</h5>
+                <form onSubmit={handleUpdateCreditLimit} style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                  <input 
+                    type="number" 
+                    placeholder="Nuevo Límite USD"
+                    className="billing-input"
+                    value={newCreditLimit}
+                    onChange={e => setNewCreditLimit(e.target.value)}
+                    style={{ flex: 1, padding: '0.5rem' }}
+                    required
+                  />
+                  <button type="submit" className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>
+                    Actualizar
                   </button>
-                </div>
+                </form>
+              </div>
+
+              {/* Traceability: Purchases */}
+              <div className="trace-section" style={{ marginBottom: '1.5rem' }}>
+                <h5>Compras y Consumos (Externo DB Sync)</h5>
+                {memberPurchases.length === 0 ? (
+                  <p className="no-data" style={{ padding: '0.5rem 0', color: 'var(--color-text-secondary)', fontSize: '0.85rem' }}>Sin consumos registrados.</p>
+                ) : (
+                  <table className="mini-trace-table">
+                    <thead>
+                      <tr>
+                        <th>Factura</th>
+                        <th>Concepto</th>
+                        <th>Monto</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {memberPurchases.map(p => (
+                        <tr key={p.id}>
+                          <td><code>{p.id}</code></td>
+                          <td>{p.description}</td>
+                          <td>${p.amount_usd.toFixed(2)}</td>
+                          <td>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                              <span className={`status-dot dot-${p.status}`}></span>
+                              {p.status === 'pending' ? 'Pendiente' : 'Pagado'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+
+              {/* Traceability: Reported Payments */}
+              <div className="trace-section" style={{ marginBottom: '1.5rem' }}>
+                <h5>Reportes de Pago Relacionados</h5>
+                {memberDeposits.length === 0 ? (
+                  <p className="no-data" style={{ padding: '0.5rem 0', color: 'var(--color-text-secondary)', fontSize: '0.85rem' }}>Sin pagos reportados.</p>
+                ) : (
+                  <table className="mini-trace-table">
+                    <thead>
+                      <tr>
+                        <th>Referencia</th>
+                        <th>Monto</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {memberDeposits.map(d => (
+                        <tr key={d.id}>
+                          <td><code>{d.reference}</code></td>
+                          <td>${d.amount.toFixed(2)}</td>
+                          <td>
+                            <span className={`badge badge-${d.status.toLowerCase()}`} style={{ fontSize: '0.7rem', padding: '0.15rem 0.35rem' }}>
+                              {d.status === 'Pending' && 'Pendiente'}
+                              {d.status === 'auto_approved' && 'Automático'}
+                              {d.status === 'manually_approved' && 'Aprobado'}
+                              {d.status === 'rejected' && 'Rechazado'}
+                              {d.status === 'cancelled' && 'Cancelado'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+
+              <div className="actions-section" style={{ borderTop: 'var(--border-card)', paddingTop: '1rem', marginTop: '1.5rem' }}>
+                <button 
+                  className={`btn ${viewingDetails.status === 'Active' ? 'btn-danger' : 'btn-primary'}`}
+                  onClick={() => toggleStatus(viewingDetails.id)}
+                  style={{ width: '100%' }}
+                >
+                  {viewingDetails.status === 'Active' ? '🚫 Suspender Socio' : '✓ Activar Socio'}
+                </button>
               </div>
             </div>
           </div>
