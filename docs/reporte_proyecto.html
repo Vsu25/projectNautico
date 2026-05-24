@@ -396,30 +396,30 @@
             </ol>
         </div>
 
-        <!-- SECCIÓN 2: BASE DE DATOS Y ERD -->
+        <!-- SECCIÓN 2: ESTRUCTURA DE INFORMACIÓN -->
         <div class="section">
-            <h2 class="section-title">2. Estructura y Modelo de Datos (ERD)</h2>
-            <p>La base de datos de Supabase (PostgreSQL) garantiza la integridad relacional de los registros, previene el doble reporte de transacciones y permite una segregación de accesos estricta (RLS).</p>
+            <h2 class="section-title">2. Estructura y Modelo de Información del Negocio</h2>
+            <p>El Ecosistema Financiero organiza los flujos relacionales mediante una arquitectura de datos optimizada para garantizar la integridad, la rapidez de conciliación y la segregación de accesos.</p>
 
             <div class="diagram-container">
-                <img src="assets/diag_erd.svg" alt="Diagrama Entidad Relación (ERD)">
+                <img src="assets/diag_erd.svg" alt="Diagrama de Estructura de Información">
             </div>
 
-            <h3>Estructura de Datos Detallada</h3>
+            <h3>Módulos de Información Core</h3>
             <div class="grid">
                 <div class="card">
-                    <h4>Cuentas de Crédito y Pedidos</h4>
-                    <p>Las tablas <code>credit_accounts</code> y <code>purchases_orders</code> almacenan los límites de crédito en dólares, los balances consumidos y los consumos individuales que dan origen a las deudas del socio.</p>
+                    <h4>Cuentas de Crédito y Consumos</h4>
+                    <p>Maneja la ficha financiera del socio, que define su límite de crédito autorizado en dólares y registra cada consumo individual (compras en restaurante, piscina, etc.) indexado al dólar para estructurar su deuda.</p>
                 </div>
                 <div class="card">
-                    <h4>Conciliación y Auditoría</h4>
-                    <p>Las tablas <code>payment_tickets</code> y <code>bank_transactions_mock</code> representan el núcleo del motor. Su restricción de clave única compuesta por Banco + Referencia bloquea cualquier intento de doble gasto o fraude.</p>
+                    <h4>Comprobantes de Pago y Banco</h4>
+                    <p>Registra las notificaciones de pago enviadas por los socios y las contrasta con el extracto bancario oficial del club. La validación requiere coincidencia exacta de Banco y Referencia para bloquear doble gasto o referencias duplicadas.</p>
                 </div>
             </div>
 
             <div class="alert-box">
-                <h4>Precisión Decimal Estricta (NUMERIC 15,2)</h4>
-                <p>Todas las transacciones de saldo, tasas de cambio y montos de pago en Bolívares (VES) y Dólares (USD) utilizan tipos de datos <code>NUMERIC(15,2)</code> a nivel de base de datos. Esto elimina la imprecisión del punto flotante en centavos, garantizando cumplimiento con estándares contables de auditoría.</p>
+                <h4>Precisión Financiera Estricta</h4>
+                <p>Todos los cálculos del sistema aplican una precisión decimal estricta de dos posiciones decimales. Esto elimina cualquier imprecisión por redondeo en conversiones cambiarias (Bolívares a Dólares) o indexaciones de balances, asegurando el cumplimiento con los estándares contables y de auditoría interna.</p>
             </div>
         </div>
 
@@ -456,29 +456,29 @@
         <!-- SECCIÓN 4: SEGURIDAD Y CUMPLIMIENTO -->
         <div class="section">
             <h2 class="section-title">4. Roles y Cumplimiento Normativo (SUDEBAN)</h2>
-            <p>De acuerdo con la Resolución No. 001-21 de SUDEBAN, la plataforma opera bajo estrictas normativas de segregación de funciones, registro inalterable y seguridad lógica:</p>
+            <p>Conforme a las normativas de seguridad digital y control interno dictadas por SUDEBAN, el ecosistema implementa una estricta separación de funciones y un registro histórico inalterable de auditoría:</p>
 
             <div class="grid">
                 <div class="card">
-                    <h4>Segregación de Roles (RBAC)</h4>
+                    <h4>Segregación de Roles (Control de Accesos)</h4>
                     <ul>
-                        <li><strong>Socio:</strong> Acceso exclusivo a sus propios datos, sin lectura de logs ni extractos bancarios.</li>
-                        <li><strong>Auditor (Staff):</strong> Capacidad operativa de aprobar o rechazar manualmente tickets. Acceso bloqueado a la tabla de logs de auditoría global.</li>
-                        <li><strong>Head Admin:</strong> Acceso total de control, edición de límites de crédito, lectura exclusiva de logs de auditoría y aprobación de tasas de cambio.</li>
+                        <li><strong>Socio:</strong> Acceso exclusivo a su balance personal, compras familiares y reportes de pago emitidos. Bloqueado de ver transacciones bancarias generales o bitácoras del club.</li>
+                        <li><strong>Auditor (Staff):</strong> Operación del panel de aprobación y gestión de la cola de discrepancias. Bloqueado de consultar la bitácora de auditoría histórica global para evitar conflictos de interés.</li>
+                        <li><strong>Administrador General (Head Admin):</strong> Acceso total de control, configuración de límites de crédito, aprobación final de tasas cambiarias y lectura exclusiva de la bitácora de auditoría global.</li>
                     </ul>
                 </div>
                 <div class="card">
-                    <h4>Cumplimiento SUDEBAN</h4>
+                    <h4>Gobernanza y Trazabilidad</h4>
                     <ul>
-                        <li><strong>Logs Inmutables:</strong> La tabla <code>audit_logs</code> tiene prohibido todo tipo de actualización (<code>UPDATE</code>) o eliminación (<code>DELETE</code>).</li>
-                        <li><strong>Tracking de IP:</strong> Toda intervención humana (aprobación manual de pagos, cambios de límites o tasas) registra de forma obligatoria la IP del operador y una marca de tiempo UTC.</li>
+                        <li><strong>Historial Inmutable:</strong> La bitácora histórica de auditoría tiene restringida cualquier opción de edición o eliminación de registros por parte de cualquier rol del sistema, garantizando la permanencia forense de la información.</li>
+                        <li><strong>Rastreo de Operaciones:</strong> Cada cambio de estado de pago, modificación de límite o aprobación de tasa de cambio captura obligatoriamente la dirección IP del operador y una marca de tiempo UTC inalterable.</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="alert-box" style="background-color: #f0fdf4; border-left-color: #22c55e;">
-                <h4>Integración de Soporte Contextual por WhatsApp</h4>
-                <p>Ante discrepancias o rechazos de pago, el socio dispone de un botón de soporte directo. El sistema genera un enlace pre-rellenado que envía a la línea de WhatsApp del club un mensaje formateado con todos los metadatos de la transacción (Socio, Cédula, Referencia, Banco, Fecha y Monto). Esto permite al staff contrastar al instante la información contra el capture de pantalla del cliente.</p>
+            <div class="alert-box" style="background-color: #eff6ff; border-left-color: #d4b26f;">
+                <h4>Mecanismo de Soporte Integrado vía WhatsApp</h4>
+                <p>En caso de pagos rechazados o pendientes por discrepancias leves, el sistema genera automáticamente un enlace de WhatsApp pre-rellenado. Este enlace transfiere directamente a la línea del club la ficha con todos los metadatos de la transacción (Nombre, Cédula, Membresía, Referencia, Banco, Fecha y Montos) permitiendo al staff resolver el caso rápidamente al compararlo con la captura física del socio.</p>
             </div>
         </div>
 
