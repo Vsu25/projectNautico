@@ -1,0 +1,48 @@
+.step-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.mini-trace-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.mini-trace-table th, .mini-trace-table td {
+  padding: 0.6rem;
+  border-bottom: var(--border-card);
+  text-align: left;
+}
+
+.mini-trace-table th {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  background: rgba(0,0,0,0.05);
+}
+
+[data-theme="flat"] .mini-trace-table th {
+  background: rgba(15, 44, 89, 0.05);
+}
+
+[data-theme="brutalist"] .mini-trace-table th {
+  background: var(--color-accent);
+  color: white;
+  border: 2px solid #0F2C59;
+}
+
+[data-theme="brutalist"] .mini-trace-table td {
+  border: 2px solid #0F2C59;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}

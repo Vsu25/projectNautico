@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import './VerifyDepositsView.css';
 
-export function VerifyDepositsView({ deposits, setDeposits, members, setMembers }) {
+export function VerifyDepositsView({ deposits, setDeposits, members, setMembers, purchases }) {
   const [selectedReceipt, setSelectedReceipt] = useState(null);
   const [rejectionTarget, setRejectionTarget] = useState(null);
   const [rejectReason, setRejectReason] = useState('');
+
+  // Find associated purchase order
+  const associatedPurchase = selectedReceipt && purchases
+    ? purchases.find(p => p.id === selectedReceipt.invoiceId || (p.user_id === selectedReceipt.memberId && Math.abs(p.amount_usd - selectedReceipt.amount) < 0.01))
+    : null;
 
   const handleApprove = (deposit) => {
     // 1. Update deposit status
@@ -101,12 +106,12 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers 
       {/* Mock Receipt Viewer Dialog */}
       {selectedReceipt && (
         <div className="modal-overlay" onClick={() => setSelectedReceipt(null)}>
-          <div className="modal-card" onClick={e => e.stopPropagation()}>
+          <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px', width: '100%' }}>
             <header className="modal-header">
-              <h3>Comprobante de Pago</h3>
+              <h3>Comprobante & Detalle de Factura</h3>
               <button className="btn-close" onClick={() => setSelectedReceipt(null)}>×</button>
             </header>
-            <div className="modal-body text-center">
+            <div className="modal-body text-center" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
               <p className="receipt-ref-label">Referencia: <code>{selectedReceipt.reference}</code></p>
               <div className="mock-receipt-image">
                 <div className="receipt-header">Banco Central</div>
@@ -115,6 +120,39 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers 
                 <div className="receipt-row"><span>Socio:</span> <span>{selectedReceipt.name}</span></div>
                 <div className="receipt-stamp">VALIDADO POR BANCO</div>
               </div>
+
+              {associatedPurchase && (
+                <div className="associated-invoice-details" style={{ marginTop: '1.5rem', borderTop: '1px solid rgba(197, 168, 128, 0.2)', paddingTop: '1.2rem', textAlign: 'left' }}>
+                  <h4 style={{ marginBottom: '0.4rem', color: 'var(--color-accent)' }}>Consumos Facturados: {associatedPurchase.id}</h4>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '0.6rem' }}>
+                    Descripción: {associatedPurchase.description}
+                  </p>
+                  <table className="mini-trace-table" style={{ width: '100%', fontSize: '0.8rem', borderCollapse: 'collapse' }}>
+                    <thead>
+                      <tr style={{ background: 'rgba(0,0,0,0.05)' }}>
+                        <th style={{ padding: '0.4rem', textAlign: 'left' }}>Concepto</th>
+                        <th style={{ padding: '0.4rem', textAlign: 'center' }}>Cant.</th>
+                        <th style={{ padding: '0.4rem', textAlign: 'right' }}>Precio</th>
+                        <th style={{ padding: '0.4rem', textAlign: 'right' }}>Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(associatedPurchase.items || [{ name: associatedPurchase.description, qty: 1, price: associatedPurchase.amount_usd }]).map((item, idx) => (
+                        <tr key={idx} style={{ borderBottom: 'var(--border-card)' }}>
+                          <td style={{ padding: '0.4rem' }}>{item.name}</td>
+                          <td style={{ padding: '0.4rem', textAlign: 'center' }}>{item.qty}</td>
+                          <td style={{ padding: '0.4rem', textAlign: 'right' }}>${item.price.toFixed(2)}</td>
+                          <td style={{ padding: '0.4rem', textAlign: 'right' }}>${(item.qty * item.price).toFixed(2)}</td>
+                        </tr>
+                      ))}
+                      <tr style={{ fontWeight: 'bold' }}>
+                        <td colSpan="3" style={{ padding: '0.4rem' }}>Total Facturado</td>
+                        <td style={{ padding: '0.4rem', textAlign: 'right' }}>${associatedPurchase.amount_usd.toFixed(2)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
   const [statusFilter, setStatusFilter] = useState('All');
   const [viewingDetails, setViewingDetails] = useState(null);
   const [newCreditLimit, setNewCreditLimit] = useState('');
+  const [selectedPurchase, setSelectedPurchase] = useState(null);
 
   const toggleStatus = (memberId) => {
     setMembers(prev => prev.map(m => {
@@ -61,6 +62,22 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
 
   const memberPurchases = viewingDetails ? purchases.filter(p => p.user_id === viewingDetails.id) : [];
   const memberDeposits = viewingDetails ? deposits.filter(d => d.memberId === viewingDetails.id) : [];
+
+  const handleDepositClick = (d) => {
+    const matchingPurchase = purchases.find(p => p.id === d.invoiceId || (p.user_id === d.memberId && Math.abs(p.amount_usd - d.amount) < 0.01));
+    if (matchingPurchase) {
+      setSelectedPurchase(matchingPurchase);
+    } else {
+      // Create a temporary mock purchase display if not found
+      setSelectedPurchase({
+        id: 'Factura Desconocida',
+        description: `Pago reportado por monto $${d.amount.toFixed(2)}`,
+        created_at: d.date,
+        amount_usd: d.amount,
+        items: [{ name: `Pago de deuda / Transferencia Ref: ${d.reference}`, qty: 1, price: d.amount }]
+      });
+    }
+  };
 
   return (
     <div className="view-content-active">
@@ -186,6 +203,7 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
               {/* Traceability: Purchases */}
               <div className="trace-section" style={{ marginBottom: '1.5rem' }}>
                 <h5>Compras y Consumos (Externo DB Sync)</h5>
+                <p className="no-data" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>💡 Haga clic en una compra para ver el detalle de los artículos.</p>
                 {memberPurchases.length === 0 ? (
                   <p className="no-data" style={{ padding: '0.5rem 0', color: 'var(--color-text-secondary)', fontSize: '0.85rem' }}>Sin consumos registrados.</p>
                 ) : (
@@ -200,7 +218,7 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
                     </thead>
                     <tbody>
                       {memberPurchases.map(p => (
-                        <tr key={p.id}>
+                        <tr key={p.id} onClick={() => setSelectedPurchase(p)} style={{ cursor: 'pointer' }} title="Ver Detalle de Artículos">
                           <td><code>{p.id}</code></td>
                           <td>{p.description}</td>
                           <td>${p.amount_usd.toFixed(2)}</td>
@@ -220,6 +238,7 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
               {/* Traceability: Reported Payments */}
               <div className="trace-section" style={{ marginBottom: '1.5rem' }}>
                 <h5>Reportes de Pago Relacionados</h5>
+                <p className="no-data" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>💡 Haga clic en un pago para ver la factura asociada.</p>
                 {memberDeposits.length === 0 ? (
                   <p className="no-data" style={{ padding: '0.5rem 0', color: 'var(--color-text-secondary)', fontSize: '0.85rem' }}>Sin pagos reportados.</p>
                 ) : (
@@ -233,7 +252,7 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
                     </thead>
                     <tbody>
                       {memberDeposits.map(d => (
-                        <tr key={d.id}>
+                        <tr key={d.id} onClick={() => handleConfirm && handleDepositClick(d)} style={{ cursor: 'pointer' }} title="Ver Factura Asociada">
                           <td><code>{d.reference}</code></td>
                           <td>${d.amount.toFixed(2)}</td>
                           <td>
@@ -241,6 +260,7 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
                               {d.status === 'Pending' && 'Pendiente'}
                               {d.status === 'auto_approved' && 'Automático'}
                               {d.status === 'manually_approved' && 'Aprobado'}
+                              {d.status === 'Approved' && 'Aprobado'}
                               {d.status === 'rejected' && 'Rechazado'}
                               {d.status === 'cancelled' && 'Cancelado'}
                             </span>
@@ -260,6 +280,51 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
                 >
                   {viewingDetails.status === 'Active' ? '🚫 Suspender Socio' : '✓ Activar Socio'}
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Itemized breakdown sub-modal */}
+      {selectedPurchase && (
+        <div className="modal-overlay" onClick={() => setSelectedPurchase(null)} style={{ zIndex: 1100 }}>
+          <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '500px', width: '100%' }}>
+            <header className="modal-header">
+              <h3>Artículos de Factura</h3>
+              <button className="btn-close" onClick={() => setSelectedPurchase(null)}>×</button>
+            </header>
+            <div className="modal-body">
+              <h4 style={{ color: 'var(--color-accent)', marginBottom: '0.4rem' }}>Factura ID: {selectedPurchase.id}</h4>
+              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '1rem' }}>
+                Descripción: {selectedPurchase.description} ({selectedPurchase.created_at})
+              </p>
+              
+              <div className="table-responsive">
+                <table className="mini-trace-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+                  <thead>
+                    <tr style={{ background: 'rgba(0,0,0,0.05)' }}>
+                      <th style={{ padding: '0.5rem', textAlign: 'left' }}>Concepto</th>
+                      <th style={{ padding: '0.5rem', textAlign: 'center' }}>Cant.</th>
+                      <th style={{ padding: '0.5rem', textAlign: 'right' }}>Precio</th>
+                      <th style={{ padding: '0.5rem', textAlign: 'right' }}>Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(selectedPurchase.items || [{ name: selectedPurchase.description, qty: 1, price: selectedPurchase.amount_usd }]).map((item, idx) => (
+                      <tr key={idx} style={{ borderBottom: 'var(--border-card)' }}>
+                        <td style={{ padding: '0.5rem' }}>{item.name}</td>
+                        <td style={{ padding: '0.5rem', textAlign: 'center' }}>{item.qty}</td>
+                        <td style={{ padding: '0.5rem', textAlign: 'right' }}>${item.price.toFixed(2)}</td>
+                        <td style={{ padding: '0.5rem', textAlign: 'right' }}>${(item.qty * item.price).toFixed(2)}</td>
+                      </tr>
+                    ))}
+                    <tr style={{ fontWeight: 'bold' }}>
+                      <td colSpan="3" style={{ padding: '0.5rem' }}>Total Facturado</td>
+                      <td style={{ padding: '0.5rem', textAlign: 'right' }}>${selectedPurchase.amount_usd.toFixed(2)}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

@@ -23,11 +23,69 @@ const initialMembers = [
 
 // Seed mock purchases database (purchases_orders table injected from External Club System)
 const initialPurchases = [
-  { id: 'INV-101', user_id: 'V-12.345.678', amount_usd: 150.00, description: 'Consumo Rest. La Marina', status: 'paid_with_transfer', created_at: '2026-05-23' },
-  { id: 'INV-102', user_id: 'V-12.345.678', amount_usd: 95.50, description: 'Alquiler Cancha Tenis', status: 'paid_with_transfer', created_at: '2026-05-22' },
-  { id: 'INV-103', user_id: 'V-12.345.678', amount_usd: 100.00, description: 'Mensualidad Club Mayo', status: 'pending', created_at: '2026-05-01' },
-  { id: 'INV-104', user_id: 'V-23.456.789', amount_usd: 150.00, description: 'Consumo Bar Piscina', status: 'pending', created_at: '2026-05-22' },
-  { id: 'INV-105', user_id: 'V-34.567.890', user_name: 'CARLOS GÓMEZ', amount_usd: 450.00, description: 'Cuota Mantenimiento Muelle', status: 'pending', created_at: '2026-05-15' }
+  { 
+    id: 'INV-101', 
+    user_id: 'V-12.345.678', 
+    amount_usd: 150.00, 
+    description: 'Consumo Rest. La Marina', 
+    status: 'paid_with_transfer', 
+    created_at: '2026-05-23',
+    items: [
+      { name: 'Parrilla Mar y Tierra', qty: 2, price: 60.00 },
+      { name: 'Cóctel del Caribe', qty: 4, price: 7.50 }
+    ]
+  },
+  { 
+    id: 'INV-102', 
+    user_id: 'V-12.345.678', 
+    amount_usd: 95.50, 
+    description: 'Alquiler Cancha Tenis', 
+    status: 'paid_with_transfer', 
+    created_at: '2026-05-22',
+    items: [
+      { name: 'Uso Cancha Arcilla (2h)', qty: 1, price: 50.00 },
+      { name: 'Pelotas Tenis Pro', qty: 3, price: 8.50 },
+      { name: 'Alquiler Raquetas', qty: 2, price: 10.00 }
+    ]
+  },
+  { 
+    id: 'INV-103', 
+    user_id: 'V-12.345.678', 
+    amount_usd: 100.00, 
+    description: 'Mensualidad Club Mayo', 
+    status: 'pending', 
+    created_at: '2026-05-01',
+    items: [
+      { name: 'Cuota de Membresía Mayo 2026', qty: 1, price: 80.00 },
+      { name: 'Contribución Fondo Deportes', qty: 1, price: 20.00 }
+    ]
+  },
+  { 
+    id: 'INV-104', 
+    user_id: 'V-23.456.789', 
+    amount_usd: 150.00, 
+    description: 'Consumo Bar Piscina', 
+    status: 'pending', 
+    created_at: '2026-05-22',
+    items: [
+      { name: 'Hamburguesa Club', qty: 3, price: 25.00 },
+      { name: 'Tobos de Cerveza Nacional', qty: 2, price: 30.00 },
+      { name: 'Helados Copa Marina', qty: 3, price: 5.00 }
+    ]
+  },
+  { 
+    id: 'INV-105', 
+    user_id: 'V-34.567.890', 
+    user_name: 'CARLOS GÓMEZ', 
+    amount_usd: 450.00, 
+    description: 'Cuota Mantenimiento Muelle', 
+    status: 'pending', 
+    created_at: '2026-05-15',
+    items: [
+      { name: 'Mantenimiento Muelle Principal', qty: 1, price: 400.00 },
+      { name: 'Servicio de Boyas', qty: 1, price: 50.00 }
+    ]
+  }
 ];
 
 // Seed mock deposits queue (payment_tickets table)
@@ -89,7 +147,18 @@ function App() {
     const renderMemberView = () => {
       switch (currentTab) {
         case 'saldos': return <SaldosView />;
-        case 'cuentas': return <CuentasView />;
+        case 'cuentas': 
+          return (
+            <CuentasView 
+              purchases={purchases} 
+              setPurchases={setPurchases} 
+              members={members} 
+              setMembers={setMembers} 
+              deposits={deposits} 
+              setDeposits={setDeposits} 
+              currentUser={currentUser} 
+            />
+          );
         case 'historial': return <HistorialView />;
         case 'info': return <InfoView />;
         default: return <SaldosView />;
@@ -121,12 +190,14 @@ function App() {
             setDeposits={setDeposits} 
             members={members} 
             setMembers={setMembers} 
+            purchases={purchases}
           />
         );
       case 'payments':
         return (
           <PaymentsHistoryView 
             deposits={deposits} 
+            purchases={purchases}
           />
         );
       case 'directory':
