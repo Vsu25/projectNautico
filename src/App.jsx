@@ -9,10 +9,11 @@ import { InfoView } from './views/InfoView';
 
 // Staff Views
 import { VerifyDepositsView } from './views/staff/VerifyDepositsView';
+import { PaymentsHistoryView } from './views/staff/PaymentsHistoryView';
 import { MemberDirectoryView } from './views/staff/MemberDirectoryView';
 import { BillingAdminView } from './views/staff/BillingAdminView';
 
-// Seed mock members database
+// Seed mock members database (users + credit_accounts tables)
 const initialMembers = [
   { id: 'V-12.345.678', name: 'JUAN PÉREZ', email: 'socio@club.com', status: 'Active', balance: 1000.00, debt: 345.50 },
   { id: 'V-23.456.789', name: 'MARÍA RODRÍGUEZ', email: 'maria@club.com', status: 'Active', balance: 50.00, debt: 150.00 },
@@ -20,11 +21,23 @@ const initialMembers = [
   { id: 'V-45.678.901', name: 'ANA MARTÍNEZ', email: 'ana@club.com', status: 'Active', balance: 1200.00, debt: 0.00 }
 ];
 
-// Seed mock deposits queue
+// Seed mock purchases database (purchases_orders table injected from External Club System)
+const initialPurchases = [
+  { id: 'INV-101', user_id: 'V-12.345.678', amount_usd: 150.00, description: 'Consumo Rest. La Marina', status: 'paid_with_transfer', created_at: '2026-05-23' },
+  { id: 'INV-102', user_id: 'V-12.345.678', amount_usd: 95.50, description: 'Alquiler Cancha Tenis', status: 'paid_with_transfer', created_at: '2026-05-22' },
+  { id: 'INV-103', user_id: 'V-12.345.678', amount_usd: 100.00, description: 'Mensualidad Club Mayo', status: 'pending', created_at: '2026-05-01' },
+  { id: 'INV-104', user_id: 'V-23.456.789', amount_usd: 150.00, description: 'Consumo Bar Piscina', status: 'pending', created_at: '2026-05-22' },
+  { id: 'INV-105', user_id: 'V-34.567.890', user_name: 'CARLOS GÓMEZ', amount_usd: 450.00, description: 'Cuota Mantenimiento Muelle', status: 'pending', created_at: '2026-05-15' }
+];
+
+// Seed mock deposits queue (payment_tickets table)
 const initialDeposits = [
   { id: 'DEP-001', memberId: 'V-12.345.678', name: 'JUAN PÉREZ', date: '2026-05-23', amount: 150.00, reference: 'REF982347', status: 'Pending', receipt: 'receipt_mock.png' },
   { id: 'DEP-002', memberId: 'V-23.456.789', name: 'MARÍA RODRÍGUEZ', date: '2026-05-22', amount: 100.00, reference: 'REF109283', status: 'Pending', receipt: 'receipt_mock.png' },
-  { id: 'DEP-003', memberId: 'V-34.567.890', name: 'CARLOS GÓMEZ', date: '2026-05-20', amount: 450.00, reference: 'REF554312', status: 'Pending', receipt: 'receipt_mock.png' }
+  { id: 'DEP-003', memberId: 'V-34.567.890', name: 'CARLOS GÓMEZ', date: '2026-05-20', amount: 450.00, reference: 'REF554312', status: 'Pending', receipt: 'receipt_mock.png' },
+  { id: 'DEP-004', memberId: 'V-45.678.901', name: 'ANA MARTÍNEZ', date: '2026-05-18', amount: 300.00, reference: 'REF111222', status: 'auto_approved', receipt: 'receipt_mock.png' },
+  { id: 'DEP-005', memberId: 'V-12.345.678', name: 'JUAN PÉREZ', date: '2026-05-15', amount: 95.50, reference: 'REF887766', status: 'manually_approved', receipt: 'receipt_mock.png' },
+  { id: 'DEP-006', memberId: 'V-23.456.789', name: 'MARÍA RODRÍGUEZ', date: '2026-05-10', amount: 50.00, reference: 'REF999000', status: 'rejected', rejectionReason: 'Comprobante borroso', receipt: 'receipt_mock.png' }
 ];
 
 function App() {
@@ -37,9 +50,10 @@ function App() {
   const [currentTab, setCurrentTab] = useState('saldos');
   const [staffTab, setStaffTab] = useState('verify');
 
-  // Shared application state
+  // Shared application state tables
   const [members, setMembers] = useState(initialMembers);
   const [deposits, setDeposits] = useState(initialDeposits);
+  const [purchases, setPurchases] = useState(initialPurchases);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-mode', mode);
@@ -109,19 +123,26 @@ function App() {
             setMembers={setMembers} 
           />
         );
+      case 'payments':
+        return (
+          <PaymentsHistoryView 
+            deposits={deposits} 
+          />
+        );
       case 'directory':
         return (
           <MemberDirectoryView 
             members={members} 
             setMembers={setMembers} 
+            purchases={purchases}
+            deposits={deposits}
           />
         );
       case 'billing':
         return (
           <BillingAdminView 
             members={members} 
-            setMembers={setMembers} 
-            deposits={deposits}
+            purchases={purchases}
           />
         );
       default:

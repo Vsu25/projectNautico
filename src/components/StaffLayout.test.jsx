@@ -23,6 +23,7 @@ describe('StaffLayout', () => {
     
     expect(screen.getByText(/Panel Administrativo/i)).toBeInTheDocument();
     expect(screen.getByText(/Verificar Pagos/i)).toBeInTheDocument();
+    expect(screen.getByText(/Transacciones/i)).toBeInTheDocument();
     
     const logoutBtn = screen.getByRole('button', { name: /Salir/i });
     fireEvent.click(logoutBtn);

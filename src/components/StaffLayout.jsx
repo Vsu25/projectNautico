@@ -7,8 +7,9 @@ export function StaffLayout({ children, currentTab, onChangeTab, theme, onChange
   const [menuOpen, setMenuOpen] = useState(false);
   const tabs = [
     { id: 'verify', label: 'Verificar Pagos', icon: '🔍' },
+    { id: 'payments', label: 'Transacciones', icon: '🧾' },
     { id: 'directory', label: 'Directorio Socios', icon: '👥' },
-    { id: 'billing', label: 'Cobros & Facturación', icon: '⚙️' }
+    { id: 'billing', label: 'Facturación', icon: '📊' }
   ];
 
   return (
