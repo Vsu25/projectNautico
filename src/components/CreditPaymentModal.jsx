@@ -29,6 +29,11 @@ export function CreditPaymentModal({ bill, member, onConfirm, onClose }) {
           <div className="step-container">
             <h3 className="step-title">Paso 1: Detalles de Facturación</h3>
             
+            <div className="bill-reason-box" style={{ marginBottom: '1.25rem' }}>
+              <span className="reason-label">Motivo de Facturación / Concepto</span>
+              <strong className="reason-text">{bill.description}</strong>
+            </div>
+
             <div className="table-responsive" style={{ margin: '1rem 0' }}>
               <table className="mini-trace-table" style={{ width: '100%' }}>
                 <thead>
@@ -50,7 +55,7 @@ export function CreditPaymentModal({ bill, member, onConfirm, onClose }) {
                   ))}
                   <tr style={{ fontWeight: 'bold', borderTop: '2px solid var(--color-border)' }}>
                     <td colSpan="3">Total a Pagar</td>
-                    <td style={{ textAlign: 'right' }}>${bill.amountUsd.toFixed(2)}</td>
+                    <td style={{ textAlign: 'right' }}>${bill.amountUsd.toFixed(2)} REF</td>
                   </tr>
                 </tbody>
               </table>

@@ -30,9 +30,11 @@ describe('CreditPaymentModal', () => {
     );
 
     expect(screen.getByText('Paso 1: Detalles de Facturación')).toBeInTheDocument();
+    expect(screen.getByText('Motivo de Facturación / Concepto')).toBeInTheDocument();
+    expect(screen.getByText('Mensualidad Club Mayo')).toBeInTheDocument();
     expect(screen.getByText('Cuota de Membresía Mayo 2026')).toBeInTheDocument();
     expect(screen.getByText('Contribución Fondo Deportes')).toBeInTheDocument();
-    expect(screen.getByText('$100.00')).toBeInTheDocument();
+    expect(screen.getByText('$100.00 REF')).toBeInTheDocument();
   });
 
   it('navigates to Step 2 and allows confirmation when credit is sufficient', () => {
