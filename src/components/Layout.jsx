@@ -3,7 +3,7 @@ import './Layout.css';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import { ModeToggle } from './ModeToggle';
 
-export function Layout({ children, currentTab, onChangeTab, theme, onChangeTheme, mode, onChangeMode, onLogout }) {
+export function Layout({ children, currentTab, onChangeTab, theme, onChangeTheme, mode, onChangeMode, onLogout, currentUser }) {
   const tabs = [
     { id: 'saldos', label: 'Saldos', icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -41,7 +41,10 @@ export function Layout({ children, currentTab, onChangeTab, theme, onChangeTheme
         <div className="sidebar-header">
           <div className="logo-placeholder">CNM</div>
           <h2>Club Náutico</h2>
-          <p className="user-name">Socio V-12345678</p>
+          <p className="user-name">
+            {currentUser?.name || 'Socio'} 
+            {currentUser?.accountNumber && <span className="user-account-num" style={{ color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 'bold' }}>#{currentUser.accountNumber}</span>}
+          </p>
         </div>
         
         <nav className="sidebar-nav">

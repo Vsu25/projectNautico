@@ -47,10 +47,17 @@ export function CuentasView({ purchases, setPurchases, members, setMembers, depo
 
   const bcvRate = 92.45;
   
+  // Find all member IDs in the same account to aggregate family bills
+  const userMember = members?.find(m => m.id === currentUser?.id);
+  const userAccount = userMember?.accountNumber;
+  const accountMemberIds = (members && userAccount)
+    ? members.filter(m => m.accountNumber === userAccount).map(m => m.id)
+    : [currentUser?.id];
+
   // Use real props if they exist, otherwise fallback
   const activeBills = (purchases && currentUser)
     ? purchases
-        .filter(p => p.user_id === currentUser.id && p.status === 'pending')
+        .filter(p => accountMemberIds.includes(p.user_id) && p.status === 'pending')
         .map(p => ({
           id: p.id,
           invoice: p.id,

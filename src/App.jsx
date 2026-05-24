@@ -15,10 +15,11 @@ import { BillingAdminView } from './views/staff/BillingAdminView';
 
 // Seed mock members database (users + credit_accounts tables)
 const initialMembers = [
-  { id: 'V-12.345.678', name: 'JUAN PÉREZ', email: 'socio@club.com', status: 'Active', balance: 1000.00, debt: 345.50 },
-  { id: 'V-23.456.789', name: 'MARÍA RODRÍGUEZ', email: 'maria@club.com', status: 'Active', balance: 50.00, debt: 150.00 },
-  { id: 'V-34.567.890', name: 'CARLOS GÓMEZ', email: 'carlos@club.com', status: 'Suspended', balance: 0.00, debt: 450.00 },
-  { id: 'V-45.678.901', name: 'ANA MARTÍNEZ', email: 'ana@club.com', status: 'Active', balance: 1200.00, debt: 0.00 }
+  { id: 'V-12.345.678', name: 'JUAN PÉREZ', email: 'socio@club.com', status: 'Active', balance: 1000.00, debt: 345.50, accountNumber: '01187' },
+  { id: 'V-99.888.777', name: 'VICTOR PÉREZ', email: 'victor@club.com', status: 'Active', balance: 1000.00, debt: 345.50, accountNumber: '01187' },
+  { id: 'V-23.456.789', name: 'MARÍA RODRÍGUEZ', email: 'maria@club.com', status: 'Active', balance: 50.00, debt: 150.00, accountNumber: '01188' },
+  { id: 'V-34.567.890', name: 'CARLOS GÓMEZ', email: 'carlos@club.com', status: 'Suspended', balance: 0.00, debt: 450.00, accountNumber: '01189' },
+  { id: 'V-45.678.901', name: 'ANA MARTÍNEZ', email: 'ana@club.com', status: 'Active', balance: 1200.00, debt: 0.00, accountNumber: '01190' }
 ];
 
 // Seed mock purchases database (purchases_orders table injected from External Club System)
@@ -206,6 +207,7 @@ const initialDeposits = [
   { id: 'DEP-002', memberId: 'V-23.456.789', name: 'MARÍA RODRÍGUEZ', date: '2026-05-22', amount: 100.00, reference: 'REF109283', status: 'Pending', receipt: 'receipt_mock.png', invoiceId: 'INV-104' },
   { id: 'DEP-003', memberId: 'V-34.567.890', name: 'CARLOS GÓMEZ', date: '2026-05-20', amount: 450.00, reference: 'REF554312', status: 'Pending', receipt: 'receipt_mock.png', invoiceId: 'INV-105' },
   { id: 'DEP-007', memberId: 'V-12.345.678', name: 'JUAN PÉREZ', date: '2026-05-24', amount: 75.00, reference: 'REF443210', status: 'Pending', receipt: 'receipt_mock.png', invoiceId: 'INV-106' },
+  { id: 'DEP-011', memberId: 'V-99.888.777', name: 'VICTOR PÉREZ', date: '2026-05-24', amount: 100.00, reference: 'PAGOMOVIL4433', status: 'Pending', receipt: 'receipt_mock.png', invoiceId: 'INV-103' },
   // ── Approved ─────────────────────────────────────────────────────
   { id: 'DEP-004', memberId: 'V-45.678.901', name: 'ANA MARTÍNEZ', date: '2026-05-18', amount: 300.00, reference: 'REF111222', status: 'auto_approved', receipt: 'receipt_mock.png' },
   { id: 'DEP-005', memberId: 'V-12.345.678', name: 'JUAN PÉREZ', date: '2026-05-15', amount: 95.50, reference: 'REF887766', status: 'manually_approved', receipt: 'receipt_mock.png', invoiceId: 'INV-102' },
@@ -268,7 +270,13 @@ function App() {
   if (currentUser.role === 'member') {
     const renderMemberView = () => {
       switch (currentTab) {
-        case 'saldos': return <SaldosView />;
+        case 'saldos': 
+          return (
+            <SaldosView 
+              currentUser={currentUser} 
+              members={members} 
+            />
+          );
         case 'cuentas': 
           return (
             <CuentasView 
@@ -281,9 +289,16 @@ function App() {
               currentUser={currentUser} 
             />
           );
-        case 'historial': return <HistorialView />;
+        case 'historial': 
+          return (
+            <HistorialView 
+              currentUser={currentUser} 
+              members={members} 
+              deposits={deposits} 
+            />
+          );
         case 'info': return <InfoView />;
-        default: return <SaldosView />;
+        default: return <SaldosView currentUser={currentUser} members={members} />;
       }
     };
 
@@ -296,6 +311,7 @@ function App() {
         mode={mode}
         onChangeMode={setMode}
         onLogout={handleLogout}
+        currentUser={currentUser}
       >
         {renderMemberView()}
       </Layout>

@@ -1,9 +1,18 @@
 import React from 'react';
 import './SaldosView.css';
 
-export function SaldosView() {
-  const limitUsd = 1000.00;
-  const balanceUsedUsd = 345.50;
+export function SaldosView({ currentUser, members }) {
+  // Look up real-time member data or fall back to mock defaults
+  const memberData = members?.find(m => m.id === currentUser?.id) || {
+    id: currentUser?.id || 'V-12.345.678',
+    name: currentUser?.name || 'JUAN PÉREZ',
+    balance: 1000.00,
+    debt: 345.50,
+    accountNumber: currentUser?.accountNumber || '01187'
+  };
+
+  const limitUsd = memberData.balance;
+  const balanceUsedUsd = memberData.debt;
   const bcvRate = 92.45;
   const balanceVes = balanceUsedUsd * bcvRate;
 
@@ -18,8 +27,11 @@ export function SaldosView() {
           <span className="card-type">Socio Principal</span>
         </div>
         <div className="card-body">
-          <p className="card-number">V-12.345.678</p>
-          <p className="card-name">JUAN PÉREZ</p>
+          <p className="card-number">{memberData.id}</p>
+          <p className="card-name">
+            {memberData.name}
+            {memberData.accountNumber && <span className="card-account-num" style={{ color: 'var(--color-accent)', marginLeft: '0.5rem', fontWeight: 'bold' }}>#{memberData.accountNumber}</span>}
+          </p>
         </div>
         <div className="card-footer">
           <div className="card-detail">
