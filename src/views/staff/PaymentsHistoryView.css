@@ -1,0 +1,29 @@
+.audit-detail {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.badge-pending {
+  background: rgba(252, 196, 25, 0.2);
+  color: #FCC419;
+}
+
+.badge-auto_approved {
+  background: rgba(81, 207, 102, 0.2);
+  color: #51CF66;
+}
+
+.badge-manually_approved {
+  background: rgba(81, 207, 102, 0.35);
+  color: var(--color-success);
+}
+
+.badge-rejected {
+  background: rgba(255, 107, 107, 0.2);
+  color: #FF6B6B;
+}
+
+.badge-cancelled {
+  background: rgba(173, 181, 189, 0.2);
+  color: #ADB5BD;
+}
