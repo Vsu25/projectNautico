@@ -221,7 +221,145 @@
 </head>
 <body>
     <div class="bento-container">
-        <!-- Contenido Bento Grid se implementa en la Tarea 2 -->
+        <!-- 1. CABECERA -->
+        <div class="bento-card header">
+            <div>
+                <h1>Ecosistema FinTech — Cuenta Club Social</h1>
+                <p>Planificación Estratégica y Fases del Desarrollo de Capacidades</p>
+            </div>
+            <div class="header-meta">
+                <div><strong>Enfoque:</strong> Planificación Modular Integrada</div>
+                <div><strong>Estructura:</strong> 6 Fases Consecutivas de Trabajo</div>
+            </div>
+        </div>
+
+        <!-- 2. FASE 0 (Span 4) -->
+        <div class="bento-card span-4">
+            <div class="phase-badge">Fase Inicial</div>
+            <h2 class="phase-title">Fase 0: Cimientos y Acceso</h2>
+            <p class="phase-objective">Establecer la infraestructura digital del proyecto en la nube y configurar los mecanismos de seguridad inicial.</p>
+            <div class="phase-content-grid">
+                <div class="deliverables-box">
+                    <h5>Entregables Clave:</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Proyecto Web React:</strong> Estructuración base del portal y herramientas de desarrollo.</li>
+                        <li><strong>Entorno Supabase:</strong> Inicialización de la base de datos base en la nube.</li>
+                        <li><strong>Autenticación Segura:</strong> Login/logout integrado con la base de socios.</li>
+                        <li><strong>Protección de Rutas:</strong> Restricción de acceso según el rol de la cuenta.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. FASE 1 (Span 8) -->
+        <div class="bento-card span-8">
+            <div class="phase-badge">Estructura Base</div>
+            <h2 class="phase-title">Fase 1: Estructura de Información y Sincronización</h2>
+            <p class="phase-objective">Modelar el almacenamiento financiero y automatizar la sincronización de deudas existentes desde el sistema del club.</p>
+            <div class="phase-content-grid">
+                <div class="deliverables-box">
+                    <h5>Entregables Clave:</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Modelo de Negocio Financiero:</strong> Estructuración de balances, pedidos del socio, comprobantes de reportes y libro de extractos.</li>
+                        <li><strong>Seguridad de Datos (RLS):</strong> Políticas estrictas en base de datos para garantizar la total privacidad de los datos de cada socio.</li>
+                        <li><strong>Trazabilidad Automática:</strong> Triggers de auditoría que capturan IP y UTC en cualquier transacción.</li>
+                        <li><strong>Script ETL de Sincronización:</strong> Pipeline programado para la inyección automática de socios y pedidos desde el sistema del club.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. FASE 2 (Span 12 - Grande) -->
+        <div class="bento-card span-12">
+            <div class="phase-badge">Hito Core - Experiencia Socio</div>
+            <h2 class="phase-title">Fase 2: Portal del Socio y Automatización Cambiaria</h2>
+            <p class="phase-objective">Habilitar el canal de autogestión financiera para los socios y el módulo de captura de la tasa de cambio oficial diaria.</p>
+            <div class="bento-card-subgrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="deliverables-box">
+                    <h5>Experiencia del Socio (Portal Web):</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Dashboard del Socio:</strong> Visualización consolidada de balance deudor, compras familiares unificadas y límite de crédito.</li>
+                        <li><strong>Reporte Digital de Pagos:</strong> Formulario para reportar transferencias y Pago Móvil con indexación de tasa de cambio.</li>
+                        <li><strong>Mesa de Ayuda WhatsApp:</strong> Generación automática de enlace con ticket de metadatos de pago para atención rápida de caja.</li>
+                    </ul>
+                </div>
+                <div class="deliverables-box">
+                    <h5>Captura de Tasa Oficial Cambiaria:</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Capturador Automatizado:</strong> Extracción diaria de la tasa oficial del Banco Central de Venezuela (BCV).</li>
+                        <li><strong>Flujo de Aprobación:</strong> Registro de tasas propuestas que requieren autorización manual del Head Admin para activarse.</li>
+                        <li><strong>Indexación en Tiempo Real:</strong> Recálculo inmediato de deudas en Bolívares y Dólares al activarse una tasa.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. FASE 3 (Span 12 - Grande) -->
+        <div class="bento-card span-12">
+            <div class="phase-badge">Hito Core - Inteligencia Financiera</div>
+            <h2 class="phase-title">Fase 3: Motor de Conciliación Automática y Panel de Aprobaciones</h2>
+            <p class="phase-objective">Implementar el motor inteligente de validación cruzada y el módulo administrativo para el staff de auditoría.</p>
+            <div class="bento-card-subgrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="deliverables-box">
+                    <h5>Motor de Cruce de Transacciones:</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Validación Atómica:</strong> Cruce automático de reportes contra extractos bancarios de acuerdo a clave única (Banco + Referencia).</li>
+                        <li><strong>Reglas de Negocio Inteligentes:</strong> Tolerancia de +/-2 días en fechas bancarias y match del monto en Bolívares.</li>
+                        <li><strong>Cola de Desviaciones:</strong> Derivación automática a estado "pendiente de auditoría" ante cualquier discrepancia.</li>
+                    </ul>
+                </div>
+                <div class="deliverables-box">
+                    <h5>Panel de Auditoría del Staff:</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Monitor de Discrepancias:</strong> Vista detallada de tickets con visualización de registros bancarios sugeridos.</li>
+                        <li><strong>Carga de Extractos Bancarios:</strong> Cargador directo de extractos bancarios en CSV que dispara la auto-conciliación.</li>
+                        <li><strong>Acción Correctiva:</strong> Edición de referencias por auditor y logs de aprobación/rechazo obligatorios.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. FASE 4 (Span 8) -->
+        <div class="bento-card span-8">
+            <div class="phase-badge">Gobernanza y Cumplimiento</div>
+            <h2 class="phase-title">Fase 4: Panel Head Admin y Auditoría Completa (SUDEBAN)</h2>
+            <p class="phase-objective">Ofrecer herramientas avanzadas de administración de crédito, gobernanza institucional y trazabilidad forense.</p>
+            <div class="phase-content-grid">
+                <div class="deliverables-box">
+                    <h5>Entregables Clave:</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Métricas de Junta Directiva:</strong> Visualización consolidada de cartera deudora, pagos aprobados y alertas de riesgo.</li>
+                        <li><strong>Gestión Flex de Límites:</strong> Modificación centralizada de límites de crédito y reasignación de roles.</li>
+                        <li><strong>Bitácora Inalterable SUDEBAN:</strong> Registro forense de auditoría a nivel de base de datos protegido contra borrado o edición.</li>
+                        <li><strong>Visor de Logs y IP:</strong> Seguimiento histórico detallado de acciones administrativas y direcciones IP origen.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. FASE 5 (Span 4) -->
+        <div class="bento-card span-4">
+            <div class="phase-badge">Despliegue y QA</div>
+            <h2 class="phase-title">Fase 5: QA, Seguridad y Lanzamiento</h2>
+            <p class="phase-objective">Certificar el desempeño seguro del sistema y realizar la puesta en producción final en el club.</p>
+            <div class="phase-content-grid">
+                <div class="deliverables-box">
+                    <h5>Entregables Clave:</h5>
+                    <ul class="deliverables-list">
+                        <li><strong>Pruebas de Estrés:</strong> Simulación de procesamiento de más de 500 conciliaciones simultáneas.</li>
+                        <li><strong>Auditoría de Seguridad Supabase:</strong> Checklist de contraseñas, RLS y rate limiting de peticiones.</li>
+                        <li><strong>Producción y DNS:</strong> Despliegue en el dominio de producción del club bajo conexiones SSL.</li>
+                        <li><strong>Capacitación de Staff:</strong> Manuales de operación del portal del socio y panel de caja.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. PIE DE PÁGINA -->
+        <div class="bento-card footer">
+            <div class="footer-summary">Ecosistema FinTech — 6 Etapas Modulares de Alto Valor</div>
+            <div class="footer-risks">Planificación centrada en la reducción del riesgo operativo mediante el motor de conciliación y la tasa oficial automatizada.</div>
+        </div>
     </div>
 </body>
 </html>
