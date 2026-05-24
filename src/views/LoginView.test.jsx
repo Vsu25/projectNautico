@@ -19,4 +19,24 @@ describe('LoginView', () => {
     
     expect(handleLogin).toHaveBeenCalledWith({ email: 'staff@club.com', role: 'staff' });
   });
+
+  it('triggers quick login for Socio Demo button click', () => {
+    const handleLogin = vi.fn();
+    render(<LoginView onLogin={handleLogin} />);
+    
+    const socioDemoBtn = screen.getByRole('button', { name: /Socio Demo/i });
+    fireEvent.click(socioDemoBtn);
+    
+    expect(handleLogin).toHaveBeenCalledWith({ email: 'socio@club.com', role: 'member' });
+  });
+
+  it('triggers quick login for Staff Demo button click', () => {
+    const handleLogin = vi.fn();
+    render(<LoginView onLogin={handleLogin} />);
+    
+    const staffDemoBtn = screen.getByRole('button', { name: /Staff Demo/i });
+    fireEvent.click(staffDemoBtn);
+    
+    expect(handleLogin).toHaveBeenCalledWith({ email: 'staff@club.com', role: 'staff' });
+  });
 });

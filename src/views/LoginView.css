@@ -8,9 +8,29 @@
 }
 
 .login-card {
-  max-width: 400px;
+  max-width: 420px;
   width: 100%;
   text-align: center;
+  padding: 2.5rem 2rem; /* Enhanced padding for a more premium, spacious look */
+}
+
+.login-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.25rem 0 1.5rem 0;
+}
+
+.login-logo {
+  transition: transform 0.6s var(--transition-easing);
+}
+
+.login-logo:hover {
+  transform: rotate(-3deg) scale(1.05);
+}
+
+.login-form {
+  margin-top: 1.5rem;
 }
 
 .form-group {
@@ -19,13 +39,19 @@
 
 .login-input {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.25rem; /* Increased input padding for ergonomics */
   border-radius: var(--border-radius);
   border: var(--border-card);
   background: rgba(255, 255, 255, 0.05);
   color: var(--color-text-primary);
   font-size: 1rem;
   outline: none;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.login-input:focus {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="flat"] .login-input {
@@ -35,40 +61,96 @@
 [data-theme="brutalist"] .login-input {
   border: 3px solid #0F2C59;
   font-weight: 500;
-  box-shadow: 2px 2px 0px #0F2C59;
+  box-shadow: 3px 3px 0px #0F2C59;
 }
 
 [data-theme="brutalist"][data-mode="dark"] .login-input {
   border: 3px solid #FFFFFF;
-  box-shadow: 2px 2px 0px #FFD93D;
+  box-shadow: 3px 3px 0px #FFD93D;
 }
 
 .login-btn {
   width: 100%;
   margin-top: 0.5rem;
+  padding: 0.85rem;
 }
 
 .credentials-helper {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
   border-top: var(--border-card);
   text-align: left;
+}
+
+.helper-title {
   font-size: 0.85rem;
+  font-weight: 600;
   color: var(--color-text-secondary);
+  margin-bottom: 0.75rem;
+  text-align: center;
 }
 
-.credentials-helper ul {
-  list-style: none;
-  margin-top: 0.5rem;
+.demo-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
 }
 
-.credentials-helper li {
-  margin-bottom: 0.25rem;
+.btn-demo {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-text-secondary);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  font-family: var(--font-title);
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  transition: all var(--transition-speed) var(--transition-easing);
 }
 
-.credentials-helper code {
-  color: var(--color-accent);
-  background: rgba(0, 0, 0, 0.2);
-  padding: 0.1rem 0.3rem;
-  border-radius: 4px;
+.btn-demo:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-accent);
+}
+
+[data-theme="flat"] .btn-demo {
+  background: #FFFFFF;
+  border: 1px solid #CED4DA;
+  color: #0F2C59;
+}
+[data-theme="flat"] .btn-demo:hover {
+  background: #F8F9FA;
+  border-color: var(--color-accent);
+}
+
+[data-theme="brutalist"] .btn-demo {
+  border: 3px solid #0F2C59;
+  background: #FFFFFF;
+  color: #0F2C59;
+  box-shadow: 2px 2px 0px #0F2C59;
+  font-weight: 600;
+}
+[data-theme="brutalist"] .btn-demo:hover {
+  box-shadow: 4px 4px 0px #0F2C59;
+  transform: translate(-2px, -2px);
+}
+[data-theme="brutalist"] .btn-demo:active {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+
+[data-theme="brutalist"][data-mode="dark"] .btn-demo {
+  border: 3px solid #FFFFFF;
+  background: #111111;
+  color: #FFFFFF;
+  box-shadow: 2px 2px 0px #FFD93D;
+}
+[data-theme="brutalist"][data-mode="dark"] .btn-demo:hover {
+  box-shadow: 4px 4px 0px #FFD93D;
 }
