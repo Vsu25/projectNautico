@@ -245,3 +245,83 @@ h1, h2, h3, h4, h5, h6 {
 [data-theme="flat"] .view-content-active, [data-theme="brutalist"] .view-content-active {
   animation: slideUpFade var(--transition-speed) ease-in-out forwards;
 }
+
+/* Global Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2000 !important; /* Always on top of everything */
+  padding: 1.5rem !important;
+  backdrop-filter: blur(6px) !important; /* Slight blur effect */
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+
+.modal-card, .modal-content {
+  background: var(--bg-card) !important;
+  border: var(--border-card) !important;
+  box-shadow: var(--box-shadow) !important;
+  border-radius: var(--border-radius) !important;
+  max-width: 600px !important;
+  width: 100% !important;
+  padding: 1.5rem !important;
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: 90vh !important; /* Prevent modal from spilling outside view */
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.modal-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 1.25rem !important;
+  border-bottom: var(--border-card) !important;
+  padding-bottom: 0.75rem !important;
+  flex-shrink: 0 !important; /* Keep header static */
+  width: 100% !important;
+}
+
+.modal-body, .drawer-scroll-body {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding-right: 0.5rem !important;
+}
+
+/* Scrollbar tweaks for modal scrollable content */
+.modal-body::-webkit-scrollbar,
+.drawer-scroll-body::-webkit-scrollbar {
+  width: 6px !important;
+}
+.modal-body::-webkit-scrollbar-thumb,
+.drawer-scroll-body::-webkit-scrollbar-thumb {
+  background: rgba(197, 168, 128, 0.3) !important;
+  border-radius: 4px !important;
+}
+
+.btn-close, .close-btn {
+  background: none !important;
+  border: none !important;
+  font-size: 2rem !important;
+  line-height: 1 !important;
+  color: var(--color-text-secondary) !important;
+  cursor: pointer !important;
+  transition: color var(--transition-speed) var(--transition-easing) !important;
+  padding: 0 0.5rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.btn-close:hover, .close-btn:hover {
+  color: var(--color-danger) !important;
+}
