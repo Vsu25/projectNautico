@@ -154,7 +154,10 @@ export function CuentasView({ purchases, setPurchases, members, setMembers, depo
                 <span className="invoice-number">{bill.invoice}</span>
                 <span className="bill-date">{bill.date}</span>
               </div>
-              <p className="bill-desc">{bill.description}</p>
+              <div className="bill-reason-box">
+                <span className="reason-label">Motivo de Facturación / Concepto</span>
+                <strong className="reason-text">{bill.description}</strong>
+              </div>
               
               {/* Itemized list preview */}
               <div className="bill-items-preview" style={{ margin: '0.8rem 0', fontSize: '0.8rem', color: 'var(--color-text-secondary)', background: 'rgba(0,0,0,0.05)', padding: '0.6rem', borderRadius: '4px' }}>
@@ -169,8 +172,7 @@ export function CuentasView({ purchases, setPurchases, members, setMembers, depo
               </div>
 
               <div className="bill-amounts">
-                <span className="bill-usd">${bill.amountUsd.toFixed(2)}</span>
-                <span className="bill-ves">Bs. {(bill.amountUsd * bcvRate).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+                <span className="bill-usd">${bill.amountUsd.toFixed(2)} REF</span>
               </div>
               <div className="bill-actions">
                 <button className="btn btn-secondary" onClick={() => handlePayCredit(bill)}>

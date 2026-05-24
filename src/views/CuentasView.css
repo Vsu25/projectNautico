@@ -107,3 +107,46 @@
   box-shadow: 4px 4px 0px #0F2C59;
   transform: translate(-2px, -2px);
 }
+
+.bill-reason-box {
+  background: rgba(197, 168, 128, 0.08);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+[data-theme="flat"] .bill-reason-box {
+  background: #F8F9FA;
+  border-left: 3px solid #0056b3;
+}
+
+[data-theme="brutalist"] .bill-reason-box {
+  background: transparent;
+  border: 2px solid #0F2C59;
+  border-left: 6px solid #0F2C59;
+}
+
+.reason-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.reason-text {
+  font-size: 1.05rem;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+[data-theme="flat"] .reason-text {
+  color: #212529;
+}
+
+[data-theme="brutalist"] .reason-text {
+  color: #0F2C59;
+}

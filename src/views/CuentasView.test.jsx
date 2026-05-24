@@ -9,7 +9,8 @@ describe('CuentasView', () => {
     expect(screen.getByText('Cuentas por Pagar')).toBeInTheDocument();
     expect(screen.getByText('F-2026001')).toBeInTheDocument();
     expect(screen.getByText('Consumo Restaurante')).toBeInTheDocument();
-    expect(screen.getByText('$45.00')).toBeInTheDocument();
+    expect(screen.getByText('$45.00 REF')).toBeInTheDocument();
+    expect(screen.queryByText(/Bs\./)).not.toBeInTheDocument();
   });
 
   it('opens payment modal when Reportar Pago Banco is clicked', () => {
