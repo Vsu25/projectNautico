@@ -15,6 +15,7 @@
   --color-text-secondary: #B0C4DE;
   --color-accent: #E5C583;
   --color-accent-hover: #D4B26F;
+  --color-btn-text: #0F2C59;
   --color-danger: #FF6B6B;
   --color-success: #51CF66;
   --color-warning: #FCC419;
@@ -39,6 +40,7 @@
   --color-text-secondary: #4A5568;
   --color-accent: #8E7048;
   --color-accent-hover: #7A5F3D;
+  --color-btn-text: #FFFFFF;
   --color-danger: #E03131;
   --color-success: #2F9E44;
   --color-warning: #F08C00;
@@ -64,6 +66,7 @@
   --color-text-secondary: #495057;
   --color-accent: #7D6139;
   --color-accent-hover: #6B5230;
+  --color-btn-text: #FFFFFF;
   --color-danger: #DC3545;
   --color-success: #198754;
   --color-warning: #B25E00;
@@ -88,6 +91,7 @@
   --color-text-secondary: #ADB5BD;
   --color-accent: #E5C583;
   --color-accent-hover: #D4B26F;
+  --color-btn-text: #0F2C59;
   --color-danger: #FF6B6B;
   --color-success: #51CF66;
   --color-warning: #FCC419;
@@ -113,6 +117,7 @@
   --color-text-secondary: #343A40;
   --color-accent: #FFD93D;
   --color-accent-hover: #F4C400;
+  --color-btn-text: #0F2C59;
   --color-danger: #FF6B6B;
   --color-success: #6BCB77;
   --color-warning: #FFA500;
@@ -137,6 +142,7 @@
   --color-text-secondary: #CCCCCC;
   --color-accent: #FFD93D;
   --color-accent-hover: #F4C400;
+  --color-btn-text: #000000;
   --color-danger: #FF6B6B;
   --color-success: #6BCB77;
   --color-warning: #FFA500;
@@ -198,7 +204,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-primary {
   background-color: var(--color-accent);
-  color: #0F2C59;
+  color: var(--color-btn-text, #0F2C59);
   box-shadow: var(--btn-shadow);
   border: none;
 }
@@ -338,15 +344,24 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.2rem;
 }
 
-[data-theme="flat"] .bill-reason-box {
+[data-theme="flat"][data-mode="light"] .bill-reason-box {
   background: #F8F9FA;
   border-left: 3px solid #0056b3;
 }
+[data-theme="flat"][data-mode="dark"] .bill-reason-box {
+  background: #2D2D2D;
+  border-left: 3px solid var(--color-accent);
+}
 
-[data-theme="brutalist"] .bill-reason-box {
+[data-theme="brutalist"][data-mode="light"] .bill-reason-box {
   background: transparent;
   border: 2px solid #0F2C59;
   border-left: 6px solid #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .bill-reason-box {
+  background: transparent;
+  border: 2px solid #FFFFFF;
+  border-left: 6px solid #FFFFFF;
 }
 
 .reason-label {
@@ -362,10 +377,67 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-[data-theme="flat"] .reason-text {
+[data-theme="flat"][data-mode="light"] .reason-text {
   color: #212529;
 }
+[data-theme="flat"][data-mode="dark"] .reason-text {
+  color: var(--color-accent);
+}
 
-[data-theme="brutalist"] .reason-text {
+[data-theme="brutalist"][data-mode="light"] .reason-text {
   color: #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .reason-text {
+  color: var(--color-accent);
+}
+
+/* Global Secondary Button Styles */
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-text-secondary);
+  color: var(--color-text-primary);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-text-primary);
+}
+
+[data-theme="flat"][data-mode="light"] .btn-secondary {
+  border-color: #CED4DA;
+  color: var(--color-text-primary);
+}
+[data-theme="flat"][data-mode="light"] .btn-secondary:hover {
+  background: #E9ECEF;
+  color: var(--color-text-primary);
+}
+
+[data-theme="flat"][data-mode="dark"] .btn-secondary {
+  border-color: #495057;
+  color: var(--color-text-primary);
+}
+[data-theme="flat"][data-mode="dark"] .btn-secondary:hover {
+  background: #E9ECEF;
+  color: #121212;
+  border-color: #E9ECEF;
+}
+
+[data-theme="brutalist"][data-mode="light"] .btn-secondary {
+  border: 2px solid #0F2C59;
+  color: #0F2C59;
+  background: transparent;
+}
+[data-theme="brutalist"][data-mode="light"] .btn-secondary:hover {
+  box-shadow: 4px 4px 0px #0F2C59;
+  transform: translate(-2px, -2px);
+}
+
+[data-theme="brutalist"][data-mode="dark"] .btn-secondary {
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  background: transparent;
+}
+[data-theme="brutalist"][data-mode="dark"] .btn-secondary:hover {
+  box-shadow: 4px 4px 0px #FFD93D;
+  transform: translate(-2px, -2px);
 }

@@ -52,13 +52,20 @@
   border-radius: calc(var(--border-radius) / 2);
 }
 
-[data-theme="flat"] .bill-amounts {
+[data-theme="flat"][data-mode="light"] .bill-amounts {
   background: #F8F9FA;
 }
+[data-theme="flat"][data-mode="dark"] .bill-amounts {
+  background: #2D2D2D;
+}
 
-[data-theme="brutalist"] .bill-amounts {
+[data-theme="brutalist"][data-mode="light"] .bill-amounts {
   background: transparent;
   border: 2px dashed #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .bill-amounts {
+  background: transparent;
+  border: 2px dashed #FFFFFF;
 }
 
 .bill-usd {
@@ -77,34 +84,5 @@
   gap: 1rem;
   margin-top: 0.5rem;
   flex-wrap: wrap;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid var(--color-text-secondary);
-  color: var(--color-text-primary);
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--color-text-primary);
-}
-
-[data-theme="flat"] .btn-secondary {
-  border-color: #E9ECEF;
-  color: var(--color-text-primary);
-}
-[data-theme="flat"] .btn-secondary:hover {
-  background: #E9ECEF;
-}
-
-[data-theme="brutalist"] .btn-secondary {
-  border: 2px solid #0F2C59;
-  color: #0F2C59;
-  background: transparent;
-}
-[data-theme="brutalist"] .btn-secondary:hover {
-  box-shadow: 4px 4px 0px #0F2C59;
-  transform: translate(-2px, -2px);
 }
 

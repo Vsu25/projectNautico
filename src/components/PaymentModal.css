@@ -33,20 +33,34 @@
   font-size: 1rem;
 }
 
-[data-theme="flat"] .form-group input, 
-[data-theme="flat"] .form-group select {
+[data-theme="flat"][data-mode="light"] .form-group input, 
+[data-theme="flat"][data-mode="light"] .form-group select {
   background: #FFFFFF;
   border: 1px solid #CED4DA;
   color: #0F2C59;
 }
+[data-theme="flat"][data-mode="dark"] .form-group input, 
+[data-theme="flat"][data-mode="dark"] .form-group select {
+  background: #2D2D2D;
+  border: 1px solid #495057;
+  color: var(--color-text-primary);
+}
 
-[data-theme="brutalist"] .form-group input, 
-[data-theme="brutalist"] .form-group select {
+[data-theme="brutalist"][data-mode="light"] .form-group input, 
+[data-theme="brutalist"][data-mode="light"] .form-group select {
   background: #FFFFFF;
   border: 2px solid #0F2C59;
   color: #0F2C59;
   border-radius: 0;
   box-shadow: 2px 2px 0px #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .form-group input, 
+[data-theme="brutalist"][data-mode="dark"] .form-group select {
+  background: #111111;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  border-radius: 0;
+  box-shadow: 2px 2px 0px #FFD93D;
 }
 
 .conversion-hint {

@@ -30,14 +30,22 @@
   background: rgba(15, 44, 89, 0.05);
 }
 
-[data-theme="brutalist"] .mini-trace-table th {
+[data-theme="brutalist"][data-mode="light"] .mini-trace-table th {
   background: var(--color-accent);
-  color: white;
+  color: #0F2C59;
   border: 2px solid #0F2C59;
 }
+[data-theme="brutalist"][data-mode="dark"] .mini-trace-table th {
+  background: var(--color-accent);
+  color: #000000;
+  border: 2px solid #FFFFFF;
+}
 
-[data-theme="brutalist"] .mini-trace-table td {
+[data-theme="brutalist"][data-mode="light"] .mini-trace-table td {
   border: 2px solid #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .mini-trace-table td {
+  border: 2px solid #FFFFFF;
 }
 
 .summary-row {
