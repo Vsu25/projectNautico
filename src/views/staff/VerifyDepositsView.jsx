@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './VerifyDepositsView.css';
 
 export function VerifyDepositsView({ deposits, setDeposits, members, setMembers, purchases }) {
@@ -104,7 +105,7 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
       )}
 
       {/* Mock Receipt Viewer Dialog */}
-      {selectedReceipt && (
+      {selectedReceipt && createPortal(
         <div className="modal-overlay" onClick={() => setSelectedReceipt(null)}>
           <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px', width: '100%' }}>
             <header className="modal-header">
@@ -155,11 +156,12 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Reject Modal */}
-      {rejectionTarget && (
+      {rejectionTarget && createPortal(
         <div className="modal-overlay">
           <div className="modal-card" onClick={e => e.stopPropagation()}>
             <header className="modal-header">
@@ -186,7 +188,8 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

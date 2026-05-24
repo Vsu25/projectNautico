@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './PaymentModal.css';
 
 export function PaymentModal({ bill, bcvRate, onConfirm, onClose }) {
@@ -29,7 +30,7 @@ export function PaymentModal({ bill, bcvRate, onConfirm, onClose }) {
     onClose();
   };
 
-  return (
+  return createPortal(
     <div className="modal-overlay">
       <div className="modal-content card view-content-active">
         <div className="modal-header">
@@ -139,6 +140,7 @@ export function PaymentModal({ bill, bcvRate, onConfirm, onClose }) {
           </form>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

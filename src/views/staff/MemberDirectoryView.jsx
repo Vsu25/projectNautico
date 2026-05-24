@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './MemberDirectoryView.css';
 
 export function MemberDirectoryView({ members, setMembers, purchases, deposits }) {
@@ -151,7 +152,7 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
       </div>
 
       {/* Member Details Drawer */}
-      {viewingDetails && (
+      {viewingDetails && createPortal(
         <div className="modal-overlay" onClick={() => setViewingDetails(null)}>
           <div className="modal-card detail-drawer" onClick={e => e.stopPropagation()}>
             <header className="modal-header">
@@ -283,11 +284,12 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Itemized breakdown sub-modal */}
-      {selectedPurchase && (
+      {selectedPurchase && createPortal(
         <div className="modal-overlay" onClick={() => setSelectedPurchase(null)} style={{ zIndex: 1100 }}>
           <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '500px', width: '100%' }}>
             <header className="modal-header">
@@ -328,7 +330,8 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

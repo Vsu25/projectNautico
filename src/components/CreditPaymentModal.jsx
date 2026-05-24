@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './CreditPaymentModal.css';
 
 export function CreditPaymentModal({ bill, member, onConfirm, onClose }) {
@@ -14,7 +15,7 @@ export function CreditPaymentModal({ bill, member, onConfirm, onClose }) {
     onClose();
   };
 
-  return (
+  return createPortal(
     <div className="modal-overlay">
       <div className="modal-content card view-content-active">
         <div className="modal-header">
@@ -67,22 +68,22 @@ export function CreditPaymentModal({ bill, member, onConfirm, onClose }) {
             <h3 className="step-title">Paso 2: Confirmación de Línea de Crédito</h3>
 
             <div className="credit-summary card" style={{ padding: '1.2rem', margin: '1.2rem 0', background: 'rgba(255,255,255,0.02)', border: 'var(--border-card)' }}>
-              <div className="summary-row" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
+              <div className="summary-row" style={{ display: 'flex', justifycontent: 'space-between', marginBottom: '0.8rem' }}>
                 <span>Crédito Disponible:</span>
                 <strong>${availableCredit.toFixed(2)}</strong>
               </div>
-              <div className="summary-row" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
+              <div className="summary-row" style={{ display: 'flex', justifycontent: 'space-between', marginBottom: '0.8rem' }}>
                 <span>Monto Factura:</span>
                 <span className="text-danger" style={{ fontWeight: '600' }}>-${bill.amountUsd.toFixed(2)}</span>
               </div>
               
               <hr style={{ border: '0', borderTop: 'var(--border-card)', margin: '0.8rem 0' }} />
 
-              <div className="summary-row" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
+              <div className="summary-row" style={{ display: 'flex', justifycontent: 'space-between', marginBottom: '0.8rem' }}>
                 <span>Saldo Deudor Actual:</span>
                 <span>${currentDebt.toFixed(2)}</span>
               </div>
-              <div className="summary-row" style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold' }}>
+              <div className="summary-row" style={{ display: 'flex', justifycontent: 'space-between', fontWeight: 'bold' }}>
                 <span>Saldo Deudor Después:</span>
                 <span className="text-warning">${(currentDebt + bill.amountUsd).toFixed(2)}</span>
               </div>
@@ -107,6 +108,7 @@ export function CreditPaymentModal({ bill, member, onConfirm, onClose }) {
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

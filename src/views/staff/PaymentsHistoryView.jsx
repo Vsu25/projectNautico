@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './PaymentsHistoryView.css';
 
 export function PaymentsHistoryView({ deposits, purchases }) {
@@ -110,7 +111,7 @@ export function PaymentsHistoryView({ deposits, purchases }) {
       </div>
 
       {/* Payment details modal containing what's being billed */}
-      {selectedPayment && (
+      {selectedPayment && createPortal(
         <div className="modal-overlay" onClick={() => setSelectedPayment(null)}>
           <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px', width: '100%' }}>
             <header className="modal-header">
@@ -174,7 +175,8 @@ export function PaymentsHistoryView({ deposits, purchases }) {
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

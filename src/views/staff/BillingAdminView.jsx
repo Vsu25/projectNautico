@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './BillingAdminView.css';
 
 export function BillingAdminView({ members, purchases }) {
@@ -83,7 +84,7 @@ export function BillingAdminView({ members, purchases }) {
       </div>
 
       {/* Invoice details sub-modal */}
-      {selectedInvoice && (
+      {selectedInvoice && createPortal(
         <div className="modal-overlay" onClick={() => setSelectedInvoice(null)}>
           <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '500px', width: '100%' }}>
             <header className="modal-header">
@@ -124,7 +125,8 @@ export function BillingAdminView({ members, purchases }) {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
