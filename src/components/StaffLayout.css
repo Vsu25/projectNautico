@@ -1,0 +1,202 @@
+.staff-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-app-color);
+  background-image: var(--bg-app-image);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+.staff-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--bg-card);
+  border-bottom: var(--border-card);
+  box-shadow: var(--box-shadow);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-brand h1 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.logo-badge {
+  background: var(--color-accent);
+  color: #0F2C59;
+  padding: 0.5rem;
+  font-family: var(--font-title);
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  border: none;
+}
+
+[data-theme="brutalist"] .logo-badge {
+  border: 2px solid #0F2C59;
+}
+[data-theme="brutalist"][data-mode="dark"] .logo-badge {
+  border: 2px solid #FFFFFF;
+}
+
+.staff-role-badge {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.nav-link-btn:hover {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link-btn.active {
+  color: var(--color-text-primary);
+  background: var(--color-accent);
+  color: #0F2C59;
+}
+
+[data-theme="brutalist"] .nav-link-btn.active {
+  border: 2px solid #0F2C59;
+  box-shadow: 2px 2px 0px #0F2C59;
+}
+
+[data-theme="brutalist"][data-mode="dark"] .nav-link-btn.active {
+  border: 2px solid #FFFFFF;
+  box-shadow: 2px 2px 0px #FFD93D;
+  color: #000000;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: transparent;
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--border-radius);
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.btn-logout:hover {
+  background: var(--color-danger);
+  color: #FFFFFF;
+}
+
+[data-theme="brutalist"] .btn-logout {
+  border: 2px solid var(--color-danger);
+  box-shadow: 2px 2px 0px var(--color-danger);
+}
+
+[data-theme="brutalist"] .btn-logout:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.staff-main-container {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 992px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border-bottom: var(--border-card);
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .nav-menu.open {
+    display: flex;
+    box-shadow: var(--box-shadow);
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-link-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
