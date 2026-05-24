@@ -12,6 +12,7 @@ El objetivo de este brochure es presentar la hoja de ruta del desarrollo del Eco
 *   **Estilo del Layout**: Bento Grid asimétrico con una grilla de 12 columnas.
 *   **Orientación**: Hoja tipo carta en horizontal (Landscape) optimizada para visualización digital e impresión corporativa.
 *   **Audiencia**: Directores, socios y coordinadores del club (sin jerga técnica ni código SQL).
+*   **Alineación de Enfoque**: Remover duraciones temporales específicas (días) para centrarse estrictamente en explicar el propósito conceptual, los objetivos y los entregables clave de cada etapa.
 
 ---
 
@@ -21,9 +22,6 @@ El objetivo de este brochure es presentar la hoja de ruta del desarrollo del Eco
     @page {
         size: letter landscape;
         margin: 10mm;
-    }
-    @page header-footer {
-        margin: 0;
     }
     ```
 *   **Colores Core**:
@@ -49,43 +47,28 @@ El objetivo de este brochure es presentar la hoja de ruta del desarrollo del Eco
 
 ### 3.1. Cabecera del Proyecto
 *   **Título**: "Ecosistema FinTech - Cuenta Club Social"
-*   **Subtítulo**: "Ruta de Vuelo y Planificación de Desarrollo del Proyecto"
-*   **Metadatos**: Versión 1.0, Duración estimada: 76 días hábiles (~3.5 meses), Equipo: 1-2 Desarrolladores.
+*   **Subtítulo**: "Estructura de Etapas y Planificación de Desarrollo del Proyecto"
+*   **Metadatos**: Versión 1.0, Orientación: Enfoque Modular de Capacidades, Planificación: 6 Etapas Integradas.
 
 ### 3.2. Hitos y Fases
-*   **Fase 0: Cimientos del Sistema (10 días)**
-    *   *Objetivo*: Establecer la infraestructura digital del proyecto en la nube.
-    *   *Entregables*: Setup inicial de la plataforma React, integración base de la nube en Supabase, pantallas seguras de acceso y despliegue del portal base.
-*   **Fase 1: Estructura de Información y Sincronización (12 días)**
-    *   *Objetivo*: Conectar el sistema de cobros actual del club con el nuevo ecosistema.
-    *   *Entregables*: Automatización del pipeline de datos (ETL) que lee deudas de socios, y configuración de políticas de privacidad para que los datos estén aislados.
-*   **Fase 2: Experiencia del Socio y Automatización Cambiaria (15 días)**
-    *   *Objetivo*: Habilitar la autogestión de pagos y la indexación de tasa cambiaria oficial.
-    *   *Entregables*: Dashboard interactivo del socio (balance de consumos familiares en USD/VES), formulario digital de reportes de pago móvil/transferencia, y automatización diaria del registro y aprobación de la tasa oficial del BCV.
-*   **Fase 3: Motor de Conciliación y Panel de Aprobaciones (17 días)**
-    *   *Objetivo*: Diseñar el cerebro que cruza reportes de pago contra los extractos bancarios.
-    *   *Entregables*: Lógica inteligente de auto-aprobación de pagos (coincidencia de banco, referencia y montos VES con tolerancia de ±2 días), cola de auditoría para discrepancias, y panel administrativo para auditores de caja.
-*   **Fase 4: Gobernanza, Seguridad y SUDEBAN (12 días)**
-    *   *Objetivo*: Asegurar el control administrativo y el cumplimiento forense normativo.
-    *   *Entregables*: Panel de control de administradores, editor de límites de crédito para socios, visor de bitácora de auditoría histórica inalterable (prohibición de editar logs) y captura de direcciones IP de operadores.
-*   **Fase 5: Garantía de Calidad y Puesta en Producción (10 días)**
-    *   *Objetivo*: Certificar el funcionamiento óptimo del sistema bajo estrés y desplegar.
-    *   *Entregables*: Pruebas de simulación masiva (cruce de más de 500 pagos simultáneos), auditoría de seguridad digital y lanzamiento oficial en el dominio de producción del club.
+*   **Fase 0: Cimientos del Sistema**
+    *   *Objetivo*: Establecer la infraestructura base y los protocolos de seguridad de acceso en la nube.
+    *   *Entregables*: Setup inicial de la plataforma del portal, integración del motor en la nube de Supabase, pantallas de inicio de sesión seguro y despliegue del layout base de navegación.
+*   **Fase 1: Estructura de Información y Sincronización**
+    *   *Objetivo*: Modelar el almacenamiento financiero y automatizar la sincronización de deudas existentes.
+    *   *Entregables*: Estructura de datos para saldos y pedidos, políticas de seguridad a nivel de fila (RLS) para proteger los datos de los socios, y automatización del sincronizador de datos (ETL) para leer deudas externas.
+*   **Fase 2: Experiencia del Socio y Automatización Cambiaria**
+    *   *Objetivo*: Habilitar la autogestión de deudas por los socios y el control cambiario oficial de pagos.
+    *   *Entregables*: Portal del Socio (visualización de saldos familiares y compras en USD/VES), formulario digital para reporte de transferencias o Pago Móvil, y sincronización diaria automatizada de la tasa de cambio oficial del BCV.
+*   **Fase 3: Motor de Conciliación y Panel de Aprobaciones**
+    *   *Objetivo*: Implementar el motor de validación automática de pagos y la mesa de soporte.
+    *   *Entregables*: Motor de cruce automático (coincidencia de banco, referencia, montos y fecha con tolerancia), panel para auditores para resolver discrepancias manuales y botón de soporte inmediato con ficha estructurada para WhatsApp.
+*   **Fase 4: Gobernanza, Seguridad y SUDEBAN**
+    *   *Objetivo*: Ofrecer a la junta directiva control total y auditoría inalterable del ecosistema.
+    *   *Entregables*: Panel de control administrativo para Head Admin, control y edición de límites de crédito, bitácora histórica de auditoría inmutable (protección contra edición de registros) y registro automático de dirección IP del operador.
+*   **Fase 5: Garantía de Calidad y Puesta en Producción**
+    *   *Objetivo*: Certificar la robustez del sistema y realizar el lanzamiento final.
+    *   *Entregables*: Pruebas integrales de estrés (procesamiento masivo de pagos simultáneos), auditoría final de seguridad digital de Supabase y puesta en producción en el dominio definitivo del club.
 
 ### 3.3. Pie de Resumen
-*   Estadísticas clave: 76 días acumulados de desarrollo, 5 fases operativas + 1 fase de despliegue, y resumen ejecutivo de riesgos (tasa de cambio e integración) con sus respectivas medidas de mitigación.
-
----
-
-## 4. Estrategia de Compilación a PDF
-El archivo PDF final se compilará desde la terminal de PowerShell en modo apaisado (horizontal):
-```powershell
-Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" -ArgumentList "--headless=new", "--disable-gpu", "--no-sandbox", "--print-to-pdf=C:\Coding\PJNautico\Ecosistema_FinTech_Fases_Desarrollo.pdf", "C:\Coding\PJNautico\docs\brochure_fases.html" -Wait
-```
-
----
-
-## 5. Plan de Verificación
-1.  **Validación de Layout**: Probar la visualización del Bento Grid en resolución tipo carta (Landscape).
-2.  **Verificación de Saltos de Página**: Asegurar que todo el Bento Grid quepa exactamente en una sola página Carta apaisada (o máximo 2 páginas si se desea más espaciado) sin desbordamientos tipográficos.
-3.  **Verificación de No-SQL**: Revisar que no haya nombres técnicos de base de datos ni consultas en el texto final.
+*   Estadísticas clave: 6 etapas consecutivas de desarrollo, cobertura total del ciclo financiero del club, y análisis de mitigación de riesgos operativos (fallback de tasas de cambio e integraciones de datos).
