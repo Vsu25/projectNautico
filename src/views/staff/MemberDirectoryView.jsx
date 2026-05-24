@@ -129,7 +129,10 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
               {filteredMembers.map(m => (
                 <tr key={m.id}>
                   <td data-label="Cédula"><code>{m.id}</code></td>
-                  <td data-label="Nombre" className="font-weight-600">{m.name}</td>
+                  <td data-label="Nombre" className="font-weight-600">
+                    {m.name}
+                    {m.accountNumber && <span style={{ color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 'bold' }}>#{m.accountNumber}</span>}
+                  </td>
                   <td data-label="Estado">
                     <span className={`badge badge-${m.status.toLowerCase()}`}>
                       {m.status === 'Active' ? 'Activo' : 'Suspendido'}
@@ -163,7 +166,10 @@ export function MemberDirectoryView({ members, setMembers, purchases, deposits }
               <div className="member-profile-header">
                 <div className="profile-avatar">{viewingDetails.name[0]}</div>
                 <div>
-                  <h4>{viewingDetails.name}</h4>
+                  <h4>
+                    {viewingDetails.name}
+                    {viewingDetails.accountNumber && <span style={{ color: 'var(--color-accent)', marginLeft: '0.5rem', fontWeight: 'bold' }}>#{viewingDetails.accountNumber}</span>}
+                  </h4>
                   <p>{viewingDetails.id} • {viewingDetails.email}</p>
                   <span className={`badge badge-${viewingDetails.status.toLowerCase()}`} style={{ display: 'inline-block', marginTop: '0.25rem' }}>
                     {viewingDetails.status === 'Active' ? 'Activo' : 'Suspendido'}

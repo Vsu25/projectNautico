@@ -8,6 +8,11 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
   const [rejectReason, setRejectReason] = useState('');
 
   // Find associated purchase order
+  const getMemberAccount = (memberId) => {
+    const member = members?.find(m => m.id === memberId);
+    return member?.accountNumber ? `#${member.accountNumber}` : '';
+  };
+
   const associatedPurchase = selectedReceipt && purchases
     ? purchases.find(p => p.id === selectedReceipt.invoiceId || (p.user_id === selectedReceipt.memberId && Math.abs(p.amount_usd - selectedReceipt.amount) < 0.01))
     : null;
@@ -74,7 +79,10 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
                   <tr key={dep.id}>
                     <td data-label="Socio">
                       <div className="member-cell">
-                        <span className="member-name">{dep.name}</span>
+                        <span className="member-name">
+                          {dep.name}
+                          {getMemberAccount(dep.memberId) && <span style={{ color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 'bold' }}>{getMemberAccount(dep.memberId)}</span>}
+                        </span>
                         <span className="member-id">{dep.memberId}</span>
                       </div>
                     </td>
@@ -118,7 +126,13 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
                 <div className="receipt-header">Banco Central</div>
                 <div className="receipt-row"><span>Transacción:</span> <span>{selectedReceipt.reference}</span></div>
                 <div className="receipt-row"><span>Monto:</span> <strong>${selectedReceipt.amount.toFixed(2)}</strong></div>
-                <div className="receipt-row"><span>Socio:</span> <span>{selectedReceipt.name}</span></div>
+                <div className="receipt-row">
+                  <span>Socio:</span>
+                  <span>
+                    {selectedReceipt.name}
+                    {getMemberAccount(selectedReceipt.memberId) && <span style={{ color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 'bold' }}>{getMemberAccount(selectedReceipt.memberId)}</span>}
+                  </span>
+                </div>
                 <div className="receipt-stamp">VALIDADO POR BANCO</div>
               </div>
 
@@ -169,7 +183,7 @@ export function VerifyDepositsView({ deposits, setDeposits, members, setMembers,
               <button className="btn-close" onClick={() => setRejectionTarget(null)}>×</button>
             </header>
             <form onSubmit={handleRejectSubmit} className="modal-body">
-              <p>Indique el motivo del rechazo para <strong>{rejectionTarget.name}</strong>:</p>
+              <p>Indique el motivo del rechazo para <strong>{rejectionTarget.name} {getMemberAccount(rejectionTarget.memberId)}</strong>:</p>
               <textarea 
                 className="reject-textarea" 
                 rows="4" 

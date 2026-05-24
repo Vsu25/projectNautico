@@ -22,7 +22,7 @@ describe('CuentasView', () => {
     
     // Modal should appear
     expect(screen.getByText('Reportar Pago')).toBeInTheDocument();
-    expect(screen.getByText('Factura: F-2026001')).toBeInTheDocument();
+    expect(screen.getByText(/Factura: F-2026001/)).toBeInTheDocument();
     
     // Close modal
     const closeBtn = screen.getByText('×');

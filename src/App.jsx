@@ -336,6 +336,7 @@ function App() {
           <PaymentsHistoryView 
             deposits={deposits} 
             purchases={purchases}
+            members={members}
           />
         );
       case 'directory':

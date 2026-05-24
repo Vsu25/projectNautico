@@ -5,6 +5,11 @@ import './BillingAdminView.css';
 export function BillingAdminView({ members, purchases }) {
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
+  const getMemberAccount = (userId) => {
+    const member = members?.find(m => m.id === userId);
+    return member?.accountNumber ? `#${member.accountNumber}` : '';
+  };
+
   // Aggregate Metrics from State
   const totalReceivables = members.reduce((acc, m) => acc + m.debt, 0);
   const totalInvoicedUsd = purchases.reduce((acc, p) => acc + p.amount_usd, 0);
@@ -65,7 +70,12 @@ export function BillingAdminView({ members, purchases }) {
               {purchases.map(p => (
                 <tr key={p.id} onClick={() => setSelectedInvoice(p)} style={{ cursor: 'pointer' }} title="Haga clic para ver detalles de artículos">
                   <td data-label="Factura ID"><code>{p.id}</code></td>
-                  <td data-label="Cédula Socio"><code>{p.user_id}</code></td>
+                   <td data-label="Cédula Socio">
+                     <code>
+                       {p.user_id}
+                       {getMemberAccount(p.user_id) && <span style={{ color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 'bold' }}>{getMemberAccount(p.user_id)}</span>}
+                     </code>
+                   </td>
                   <td data-label="Fecha Sincronización">{p.created_at}</td>
                   <td data-label="Concepto / Descripción">{p.description}</td>
                   <td data-label="Monto (USD)" className="font-weight-700">${p.amount_usd.toFixed(2)}</td>
@@ -94,7 +104,7 @@ export function BillingAdminView({ members, purchases }) {
             <div className="modal-body">
               <h4 style={{ color: 'var(--color-accent)', marginBottom: '0.4rem' }}>Factura: {selectedInvoice.id}</h4>
               <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '1rem' }}>
-                Socio: {selectedInvoice.user_id} | Fecha: {selectedInvoice.created_at}
+                Socio: {selectedInvoice.user_id} {getMemberAccount(selectedInvoice.user_id) && <strong style={{ color: 'var(--color-accent)' }}>{getMemberAccount(selectedInvoice.user_id)}</strong>} | Fecha: {selectedInvoice.created_at}
               </p>
               
               <div className="table-responsive">

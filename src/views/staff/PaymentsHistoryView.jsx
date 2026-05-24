@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import './PaymentsHistoryView.css';
 
-export function PaymentsHistoryView({ deposits, purchases }) {
+export function PaymentsHistoryView({ deposits, purchases, members = [] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [selectedPayment, setSelectedPayment] = useState(null);
+
+  const getMemberAccount = (memberId) => {
+    const member = members?.find(m => m.id === memberId);
+    return member?.accountNumber ? `#${member.accountNumber}` : '';
+  };
 
   const filteredDeposits = deposits.filter(d => {
     const matchesSearch = d.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -78,7 +83,10 @@ export function PaymentsHistoryView({ deposits, purchases }) {
                   <td data-label="Referencia"><code>{dep.reference}</code></td>
                   <td data-label="Socio">
                     <div className="member-cell">
-                      <span className="member-name">{dep.name}</span>
+                      <span className="member-name">
+                        {dep.name}
+                        {getMemberAccount(dep.memberId) && <span style={{ color: 'var(--color-accent)', marginLeft: '0.4rem', fontWeight: 'bold' }}>{getMemberAccount(dep.memberId)}</span>}
+                      </span>
                       <span className="member-id">{dep.memberId}</span>
                     </div>
                   </td>
@@ -124,7 +132,7 @@ export function PaymentsHistoryView({ deposits, purchases }) {
                 <h4 style={{ marginBottom: '0.8rem', color: 'var(--color-accent)' }}>Información del Ticket</h4>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', fontSize: '0.85rem' }}>
                   <div><strong>Referencia:</strong> <code>{selectedPayment.reference}</code></div>
-                  <div><strong>Socio:</strong> {selectedPayment.name} ({selectedPayment.memberId})</div>
+                  <div><strong>Socio:</strong> {selectedPayment.name} {getMemberAccount(selectedPayment.memberId)} ({selectedPayment.memberId})</div>
                   <div><strong>Monto:</strong> ${selectedPayment.amount.toFixed(2)}</div>
                   <div><strong>Fecha de Reporte:</strong> {selectedPayment.date}</div>
                   <div style={{ gridColumn: 'span 2' }}>

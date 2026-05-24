@@ -38,7 +38,10 @@ export function PaymentModal({ bill, bcvRate, onConfirm, onClose }) {
           <button className="close-btn" onClick={onClose}>×</button>
         </div>
         
-        <p className="modal-subtitle">Factura: {bill.invoice}</p>
+        <p className="modal-subtitle">
+          Factura: {bill.invoice}
+          {bill.memberDetails && ` | Socio: ${bill.memberDetails.name} #${bill.memberDetails.accountNumber}`}
+        </p>
 
         {step === 1 ? (
           <div className="step-container">

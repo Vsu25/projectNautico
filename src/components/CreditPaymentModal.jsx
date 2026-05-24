@@ -23,7 +23,10 @@ export function CreditPaymentModal({ bill, member, onConfirm, onClose }) {
           <button className="close-btn" onClick={onClose}>×</button>
         </div>
 
-        <p className="modal-subtitle">Factura: {bill.invoice}</p>
+        <p className="modal-subtitle">
+          Factura: {bill.invoice}
+          {(member || bill.memberDetails) && ` | Socio: ${(member || bill.memberDetails).name} #${(member || bill.memberDetails).accountNumber}`}
+        </p>
 
         {step === 1 ? (
           <div className="step-container">

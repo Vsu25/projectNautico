@@ -58,15 +58,22 @@ export function CuentasView({ purchases, setPurchases, members, setMembers, depo
   const activeBills = (purchases && currentUser)
     ? purchases
         .filter(p => accountMemberIds.includes(p.user_id) && p.status === 'pending')
-        .map(p => ({
-          id: p.id,
-          invoice: p.id,
-          date: p.created_at,
-          description: p.description,
-          amountUsd: p.amount_usd,
-          items: p.items || [{ name: p.description, qty: 1, price: p.amount_usd }]
-        }))
-    : fallbackBills;
+        .map(p => {
+          const m = members?.find(member => member.id === p.user_id);
+          return {
+            id: p.id,
+            invoice: p.id,
+            date: p.created_at,
+            description: p.description,
+            amountUsd: p.amount_usd,
+            items: p.items || [{ name: p.description, qty: 1, price: p.amount_usd }],
+            memberDetails: m ? { name: m.name, accountNumber: m.accountNumber } : { name: currentUser.name, accountNumber: currentUser.accountNumber || '01187' }
+          };
+        })
+    : fallbackBills.map(b => ({
+        ...b,
+        memberDetails: { name: 'JUAN PÉREZ', accountNumber: '01187' }
+      }));
 
   const totalUsd = activeBills.reduce((sum, bill) => sum + bill.amountUsd, 0);
 
@@ -158,7 +165,14 @@ export function CuentasView({ purchases, setPurchases, members, setMembers, depo
           {activeBills.map(bill => (
             <div key={bill.id} className="bill-card card">
               <div className="bill-header">
-                <span className="invoice-number">{bill.invoice}</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
+                  <span className="invoice-number">{bill.invoice}</span>
+                  {bill.memberDetails && (
+                    <span className="bill-member-ref" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>
+                      Socio: {bill.memberDetails.name} <strong style={{ color: 'var(--color-accent)' }}>#{bill.memberDetails.accountNumber}</strong>
+                    </span>
+                  )}
+                </div>
                 <span className="bill-date">{bill.date}</span>
               </div>
               <div className="bill-reason-box">
