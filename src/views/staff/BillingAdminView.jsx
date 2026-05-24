@@ -1,153 +1,82 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './BillingAdminView.css';
 
-export function BillingAdminView({ members, setMembers, deposits }) {
-  const [selectedMemberId, setSelectedMemberId] = useState('');
-  const [chargeAmount, setChargeAmount] = useState('');
-  const [chargeConcept, setChargeConcept] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-
-  // Metrics
-  const totalOutstandingDebt = members.reduce((acc, curr) => acc + curr.debt, 0);
-  const totalCollections = deposits
-    .filter(d => d.status === 'Approved')
-    .reduce((acc, curr) => acc + curr.amount, 0);
-
-  const handleManualChargeSubmit = (e) => {
-    e.preventDefault();
-    if (!selectedMemberId || !chargeAmount) return;
-
-    const amountNum = parseFloat(chargeAmount);
-    setMembers(prev => prev.map(m => {
-      if (m.id === selectedMemberId) {
-        return {
-          ...m,
-          debt: m.debt + amountNum
-        };
-      }
-      return m;
-    }));
-
-    setSuccessMessage(`Cargo de $${amountNum.toFixed(2)} aplicado exitosamente.`);
-    setChargeAmount('');
-    setChargeConcept('');
-    setTimeout(() => setSuccessMessage(''), 4000);
-  };
-
-  const handleGenerateMonthlyFees = () => {
-    // Post standard monthly fee of $100 to all Active members
-    const feeAmount = 100.00;
-    setMembers(prev => prev.map(m => {
-      if (m.status === 'Active') {
-        return {
-          ...m,
-          debt: m.debt + feeAmount
-        };
-      }
-      return m;
-    }));
-    
-    setSuccessMessage('Cuotas mensuales de $100.00 aplicadas a todos los socios activos.');
-    setTimeout(() => setSuccessMessage(''), 4000);
-  };
+export function BillingAdminView({ members, purchases }) {
+  // Aggregate Metrics from State
+  const totalReceivables = members.reduce((acc, m) => acc + m.debt, 0);
+  const totalInvoicedUsd = purchases.reduce((acc, p) => acc + p.amount_usd, 0);
+  const totalPaidUsd = purchases
+    .filter(p => p.status !== 'pending')
+    .reduce((acc, p) => acc + p.amount_usd, 0);
 
   return (
     <div className="view-content-active">
       <div className="view-header">
-        <h2>Cobros & Facturación</h2>
-        <p className="subtitle">Configuración de tarifas, facturación mensual y cobros extraordinarios</p>
+        <h2>Facturación & Transcripción</h2>
+        <p className="subtitle">Registro histórico de facturas importadas del sistema de consumo del Club</p>
       </div>
 
-      {successMessage && (
-        <div className="card alert-success">
-          {successMessage}
-        </div>
-      )}
-
-      {/* Analytics Summary */}
       <div className="metrics-grid">
+        <div className="card metric-card">
+          <span className="metric-icon">📊</span>
+          <div>
+            <span className="metric-label">Facturación Acumulada</span>
+            <strong className="metric-val">${totalInvoicedUsd.toFixed(2)}</strong>
+          </div>
+        </div>
         <div className="card metric-card">
           <span className="metric-icon">💰</span>
           <div>
-            <span className="metric-label">Recaudación Mensual (Aprobada)</span>
-            <strong className="metric-val text-success">${totalCollections.toFixed(2)}</strong>
+            <span className="metric-label">Monto Liquidado (Socio Transfer/Crédito)</span>
+            <strong className="metric-val text-success">${totalPaidUsd.toFixed(2)}</strong>
           </div>
         </div>
-        <div className="card metric-card">
+        <div className="card metric-card" style={{ gridColumn: 'span 2' }}>
           <span className="metric-icon">📉</span>
           <div>
-            <span className="metric-label">Cuentas por Cobrar (Deuda Total)</span>
-            <strong className="metric-val text-danger">${totalOutstandingDebt.toFixed(2)}</strong>
+            <span className="metric-label">Cuentas por Cobrar Totales (Deuda Activa)</span>
+            <strong className="metric-val text-danger">${totalReceivables.toFixed(2)}</strong>
           </div>
         </div>
       </div>
 
-      <div className="billing-grid">
-        {/* Manual Charge Form */}
-        <div className="card billing-form-card">
-          <h3>Cargar Cuota Individual</h3>
-          <form onSubmit={handleManualChargeSubmit} style={{ marginTop: '1rem' }}>
-            <div className="form-group">
-              <label className="input-label">Seleccionar Socio</label>
-              <select 
-                className="billing-select"
-                value={selectedMemberId}
-                onChange={e => setSelectedMemberId(e.target.value)}
-                required
-              >
-                <option value="">-- Seleccionar Socio --</option>
-                {members.map(m => (
-                  <option key={m.id} value={m.id}>{m.name} ({m.id})</option>
-                ))}
-              </select>
-            </div>
+      <div className="view-header" style={{ marginTop: '2rem' }}>
+        <h3>Transcripción de Consumos Sincronizados (DB Sync)</h3>
+        <p className="subtitle" style={{ fontSize: '0.85rem' }}>Historial inalterable de compras reportadas por el sistema externo del Club Social</p>
+      </div>
 
-            <div className="form-group">
-              <label className="input-label">Concepto de Cobro</label>
-              <input 
-                type="text" 
-                placeholder="Ej. Cuota Marina Extra, Alquiler Muelle"
-                className="billing-input"
-                value={chargeConcept}
-                onChange={e => setChargeConcept(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="input-label">Monto ($)</label>
-              <input 
-                type="number" 
-                step="0.01"
-                placeholder="Monto a cobrar"
-                className="billing-input"
-                value={chargeAmount}
-                onChange={e => setChargeAmount(e.target.value)}
-                required
-              />
-            </div>
-
-            <button type="submit" className="btn btn-primary billing-submit-btn">
-              Cargar Monto
-            </button>
-          </form>
-        </div>
-
-        {/* Action Panel */}
-        <div className="card mass-invoicing-card">
-          <h3>Facturación Masiva</h3>
-          <p style={{ margin: '1rem 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
-            Cargue automáticamente la cuota ordinaria mensual de membresía a todos los socios del club que se encuentren en estado <strong>Activo</strong>.
-          </p>
-          
-          <div className="fee-preview-box">
-            <span className="fee-preview-label">Cuota Mensual Estándar</span>
-            <strong className="fee-preview-val">$100.00</strong>
-          </div>
-
-          <button className="btn btn-primary mass-btn" onClick={handleGenerateMonthlyFees}>
-            ⚡ Generar Facturación Mensual
-          </button>
+      <div className="card table-card">
+        <div className="table-responsive">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Factura ID</th>
+                <th>Cédula Socio</th>
+                <th>Fecha Sincronización</th>
+                <th>Concepto / Descripción</th>
+                <th>Monto (USD)</th>
+                <th>Estado de Liquidación</th>
+              </tr>
+            </thead>
+            <tbody>
+              {purchases.map(p => (
+                <tr key={p.id}>
+                  <td><code>{p.id}</code></td>
+                  <td><code>{p.user_id}</code></td>
+                  <td>{p.created_at}</td>
+                  <td>{p.description}</td>
+                  <td className="font-weight-700">${p.amount_usd.toFixed(2)}</td>
+                  <td>
+                    <span className={`badge badge-${p.status}`}>
+                      {p.status === 'pending' && 'Pendiente de Pago'}
+                      {p.status === 'paid_with_transfer' && 'Pagado Directo'}
+                      {p.status === 'paid_with_credit' && 'Cargado a Crédito'}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
