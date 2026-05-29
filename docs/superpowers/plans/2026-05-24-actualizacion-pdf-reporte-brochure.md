@@ -1,0 +1,576 @@
+# Actualización de Reporte y Brochure Ejecutivo (PDF) Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Actualizar el reporte `docs/reporte_proyecto.html` con un diseño híbrido premium, contenido funcional libre de SQL y un brochure final de beneficios duales, para luego compilarlo a `Ecosistema_FinTech_Club_Social.pdf`.
+
+**Architecture:** El reporte se define mediante un archivo HTML5 semántico y CSS3 con tipografía de Google Fonts, diseñado para renderizar con calidad digital y compilarse perfectamente en PDF carta usando Google Chrome en modo headless con directivas específicas de impresión.
+
+**Tech Stack:** HTML5, CSS3, Google Fonts (Outfit & Inter), Headless Chrome.
+
+---
+
+### Task 1: Actualización de Estilos y Estructura Visual del Reporte
+
+**Files:**
+- Modify: `docs/reporte_proyecto.html` (Estilos CSS)
+
+- [ ] **Step 1: Reemplazar los estilos en la sección `<style>` de `docs/reporte_proyecto.html`**
+
+Reemplazar los estilos existentes con el nuevo sistema de diseño (Off-white, Azul marino, Oro champagne, tipografías Outfit/Inter y reglas de impresión):
+
+```html
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+    
+    :root {
+        --primary: #0A1128;
+        --secondary: #4A5568;
+        --accent: #D4B26F;
+        --accent-dark: #B59353;
+        --bg-app: #FCFBF7;
+        --bg-card: #FFFFFF;
+        --border-card: 1px solid rgba(212, 178, 111, 0.25);
+        --text-main: #2D3748;
+        --text-dark: #0A1128;
+        --text-light: #718096;
+        --success: #2F9E44;
+        --success-light: #EBFBEE;
+        --info: #1E3A8A;
+        --info-light: #EFF6FF;
+    }
+
+    @page {
+        size: letter;
+        margin: 20mm;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-main);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-app);
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: 'Outfit', sans-serif;
+        color: var(--text-dark);
+        font-weight: 700;
+    }
+
+    /* Estilo de la Portada */
+    .cover-page {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+        box-sizing: border-box;
+        background: radial-gradient(135deg, #0A1128 0%, #101F42 100%);
+        color: #ffffff;
+        text-align: center;
+        position: relative;
+        border-bottom: 8px solid var(--accent);
+    }
+
+    .cover-page::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border: 1px solid rgba(212, 178, 111, 0.2);
+        pointer-events: none;
+    }
+
+    .cover-logo {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 2rem;
+        color: var(--accent);
+        font-family: 'Outfit', sans-serif;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(212, 178, 111, 0.3);
+        padding-bottom: 0.5rem;
+    }
+
+    .cover-title {
+        font-size: 3.8rem;
+        font-weight: 800;
+        margin: 0 0 1rem 0;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+    }
+
+    .cover-subtitle {
+        font-size: 1.4rem;
+        font-weight: 300;
+        color: #B0C4DE;
+        margin-bottom: 4rem;
+        max-width: 600px;
+    }
+
+    .cover-meta {
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.95rem;
+        color: #B0C4DE;
+    }
+
+    .container {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+
+    .section {
+        margin-bottom: 4rem;
+    }
+
+    .page-break {
+        page-break-after: always;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 0.5rem;
+        margin-bottom: 2rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+    }
+
+    .section-title::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 1.6rem;
+        background-color: var(--accent);
+        margin-right: 0.75rem;
+        border-radius: 2px;
+    }
+
+    .diagram-container {
+        background-color: #ffffff;
+        border: var(--border-card);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .diagram-container img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .card {
+        background-color: var(--bg-card);
+        border: var(--border-card);
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+    }
+
+    .card h4 {
+        margin-top: 0;
+        color: var(--primary);
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(212, 178, 111, 0.15);
+        padding-bottom: 0.4rem;
+    }
+
+    .alert-box {
+        background-color: var(--info-light);
+        border-left: 4px solid var(--accent);
+        padding: 1.5rem;
+        border-radius: 0 8px 8px 0;
+        margin: 1.5rem 0;
+    }
+
+    .alert-box h4 {
+        margin-top: 0;
+        color: var(--info);
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .step-list {
+        margin: 1.5rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .step-list li {
+        margin-bottom: 0.8rem;
+    }
+
+    .step-title {
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    /* Brochure Específico */
+    .brochure-container {
+        padding: 2rem;
+        background: #ffffff;
+        border: 2px solid var(--accent);
+        border-radius: 16px;
+        margin-top: 2rem;
+    }
+
+    .brochure-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .brochure-title {
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .brochure-subtitle {
+        font-size: 1.1rem;
+        color: var(--secondary);
+        font-weight: 400;
+    }
+
+    .brochure-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .brochure-column {
+        padding: 1rem;
+    }
+
+    .brochure-column.left {
+        border-right: 1px dashed rgba(212, 178, 111, 0.4);
+    }
+
+    .brochure-column h3 {
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .brochure-item {
+        margin-bottom: 1.5rem;
+    }
+
+    .brochure-item h5 {
+        font-size: 1rem;
+        color: var(--primary);
+        margin: 0 0 0.3rem 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .brochure-item h5::before {
+        content: "◆";
+        color: var(--accent);
+        margin-right: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .brochure-item p {
+        font-size: 0.9rem;
+        color: var(--secondary);
+        margin: 0;
+    }
+
+    .brochure-footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(212, 178, 111, 0.2);
+        font-size: 0.95rem;
+        color: var(--secondary);
+        font-style: italic;
+    }
+
+    /* Estilos de Impresión */
+    @media print {
+        body {
+            background-color: #ffffff;
+            font-size: 10pt;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        .cover-page {
+            height: 95vh;
+            border-bottom: 6px solid var(--accent);
+        }
+
+        .diagram-container {
+            box-shadow: none;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            page-break-inside: avoid;
+        }
+
+        .card {
+            box-shadow: none;
+            page-break-inside: avoid;
+        }
+
+        .alert-box {
+            page-break-inside: avoid;
+        }
+
+        .brochure-container {
+            page-break-inside: avoid;
+        }
+
+        h2, h3, h4 {
+            page-break-after: avoid;
+        }
+
+        p, li {
+            orphans: 3;
+            widows: 3;
+        }
+    }
+</style>
+```
+
+- [ ] **Step 2: Commit parcial de estilos**
+
+```bash
+git add docs/reporte_proyecto.html
+git commit -m "UI design: update HTML styles to premium hybrid light theme"
+```
+
+---
+
+### Task 2: Redacción de Contenido Conceptual No Técnico
+
+**Files:**
+- Modify: `docs/reporte_proyecto.html` (Cuerpo del documento)
+
+- [ ] **Step 1: Reemplazar el contenido de la Sección 2 (Estructura y Modelo de Datos) para remover referencias a SQL**
+
+Reemplazar la sección `<div class="section">` correspondiente a la "Estructura y Modelo de Datos (ERD)" para eliminar términos como "tablas", "PK/FK", "NUMERIC" y nombres técnicos de tablas:
+
+```html
+        <!-- SECCIÓN 2: ESTRUCTURA DE INFORMACIÓN -->
+        <div class="section">
+            <h2 class="section-title">2. Estructura y Modelo de Información del Negocio</h2>
+            <p>El Ecosistema Financiero organiza los flujos relacionales mediante una arquitectura de datos optimizada para garantizar la integridad, la rapidez de conciliación y la segregación de accesos.</p>
+
+            <div class="diagram-container">
+                <img src="assets/diag_erd.svg" alt="Diagrama de Estructura de Información">
+            </div>
+
+            <h3>Módulos de Información Core</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Cuentas de Crédito y Consumos</h4>
+                    <p>Maneja la ficha financiera del socio, que define su límite de crédito autorizado en dólares y registra cada consumo individual (compras en restaurante, piscina, etc.) indexado al dólar para estructurar su deuda.</p>
+                </div>
+                <div class="card">
+                    <h4>Comprobantes de Pago y Banco</h4>
+                    <p>Registra las notificaciones de pago enviadas por los socios y las contrasta con el extracto bancario oficial del club. La validación requiere coincidencia exacta de Banco y Referencia para bloquear doble gasto o referencias duplicadas.</p>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                <h4>Precisión Financiera Estricta</h4>
+                <p>Todos los cálculos del sistema aplican una precisión decimal estricta de dos posiciones decimales. Esto elimina cualquier imprecisión por redondeo en conversiones cambiarias (Bolívares a Dólares) o indexaciones de balances, asegurando el cumplimiento con los estándares contables y de auditoría interna.</p>
+            </div>
+        </div>
+```
+
+- [ ] **Step 2: Reemplazar el contenido de la Sección 4 (Seguridad y Cumplimiento) para ser completamente conceptual**
+
+Reemplazar la sección 4 eliminando nombres de tablas específicas:
+
+```html
+        <!-- SECCIÓN 4: SEGURIDAD Y CUMPLIMIENTO -->
+        <div class="section">
+            <h2 class="section-title">4. Roles y Cumplimiento Normativo (SUDEBAN)</h2>
+            <p>Conforme a las normativas de seguridad digital y control interno dictadas por SUDEBAN, el ecosistema implementa una estricta separación de funciones y un registro histórico inalterable de auditoría:</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Segregación de Roles (Control de Accesos)</h4>
+                    <ul>
+                        <li><strong>Socio:</strong> Acceso exclusivo a su balance personal, compras familiares y reportes de pago emitidos. Bloqueado de ver transacciones bancarias generales o bitácoras del club.</li>
+                        <li><strong>Auditor (Staff):</strong> Operación del panel de aprobación y gestión de la cola de discrepancias. Bloqueado de consultar la bitácora de auditoría histórica global para evitar conflictos de interés.</li>
+                        <li><strong>Administrador General (Head Admin):</strong> Acceso total de control, configuración de límites de crédito, aprobación final de tasas cambiarias y lectura exclusiva de la bitácora de auditoría global.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Gobernanza y Trazabilidad</h4>
+                    <ul>
+                        <li><strong>Historial Inmutable:</strong> La bitácora histórica de auditoría tiene restringida cualquier opción de edición o eliminación de registros por parte de cualquier rol del sistema, garantizando la permanencia forense de la información.</li>
+                        <li><strong>Rastreo de Operaciones:</strong> Cada cambio de estado de pago, modificación de límite o aprobación de tasa de cambio captura obligatoriamente la dirección IP del operador y una marca de tiempo UTC inalterable.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert-box" style="background-color: #eff6ff; border-left-color: #d4b26f;">
+                <h4>Mecanismo de Soporte Integrado vía WhatsApp</h4>
+                <p>En caso de pagos rechazados o pendientes por discrepancias leves, el sistema genera automáticamente un enlace de WhatsApp pre-rellenado. Este enlace transfiere directamente a la línea del club la ficha con todos los metadatos de la transacción (Nombre, Cédula, Membresía, Referencia, Banco, Fecha y Montos) permitiendo al staff resolver el caso rápidamente al compararlo con la captura física del socio.</p>
+            </div>
+        </div>
+```
+
+- [ ] **Step 3: Commit parcial del contenido conceptual**
+
+```bash
+git add docs/reporte_proyecto.html
+git commit -m "docs: remove SQL mentions and write business-oriented sections"
+```
+
+---
+
+### Task 3: Implementación del Brochure de Cierre
+
+**Files:**
+- Modify: `docs/reporte_proyecto.html` (Final del archivo)
+
+- [ ] **Step 1: Agregar el Brochure al final del documento HTML**
+
+Agregar la sección 5 con la directiva `page-break` antes de cerrar el contenedor principal:
+
+```html
+        <!-- SECCIÓN 5: BROCHURE EJECUTIVO -->
+        <div class="page-break"></div>
+        
+        <div class="section">
+            <h2 class="section-title">5. Brochure Ejecutivo: Ecosistema Cuenta Club Social</h2>
+            <p>Un resumen visual e interactivo de las ventajas que aporta la digitalización financiera a nuestra comunidad de socios y al personal administrativo del club.</p>
+            
+            <div class="brochure-container">
+                <div class="brochure-header">
+                    <div class="cover-logo" style="color: var(--primary); display: inline-block; font-size: 1.8rem; margin-bottom: 0.5rem;">Cuenta Club Social</div>
+                    <h3 class="brochure-title">Ecosistema FinTech</h3>
+                    <p class="brochure-subtitle">Eficiencia, Seguridad y Transparencia en la gestión del club</p>
+                </div>
+                
+                <div class="brochure-grid">
+                    <!-- Columna Socio -->
+                    <div class="brochure-column left">
+                        <h3>👤 Para el Socio</h3>
+                        
+                        <div class="brochure-item">
+                            <h5>Comodidad y Autogestión 24/7</h5>
+                            <p>Consulta balances, deudas y límites de crédito desde cualquier dispositivo en tiempo real, sin llamadas ni esperas en caja.</p>
+                        </div>
+                        
+                        <div class="brochure-item">
+                            <h5>Reportes de Pago al Instante</h5>
+                            <p>Notifica transferencias o Pago Móvil en Bolívares con conversión automatizada a la tasa oficial autorizada del BCV.</p>
+                        </div>
+
+                        <div class="brochure-item">
+                            <h5>Soporte Directo con un Clic</h5>
+                            <p>Enlace integrado a WhatsApp que genera un ticket de soporte pre-rellenado con los datos de tu transacción ante cualquier duda.</p>
+                        </div>
+
+                        <div class="brochure-item">
+                            <h5>Financiamiento Interno Flexible</h5>
+                            <p>Amortiza consumos diarios cargándolos a tu línea de crédito autorizada y consolidando tu pago en un solo corte mensual.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna Club -->
+                    <div class="brochure-column">
+                        <h3>🏢 Para el Club y la Administración</h3>
+                        
+                        <div class="brochure-item">
+                            <h5>Conciliación Automatizada</h5>
+                            <p>Motor de cruce que concilia pagos en segundos contra el extracto del banco, reduciendo hasta un 90% el trabajo administrativo.</p>
+                        </div>
+                        
+                        <div class="brochure-item">
+                            <h5>Prevención de Doble Gasto</h5>
+                            <p>Validación estricta de referencias bancarias únicas por banco de origen, impidiendo reportes duplicados o fraudulentos.</p>
+                        </div>
+
+                        <div class="brochure-item">
+                            <h5>Gobernanza SUDEBAN</h5>
+                            <p>Separación total de funciones y bitácora de auditoría digital inalterable con rastreo de IP y marcas de tiempo para control interno.</p>
+                        </div>
+
+                        <div class="brochure-item">
+                            <h5>Control de Riesgo de Crédito</h5>
+                            <p>Gestión centralizada de límites financieros y aprobación manual obligatoria de propuestas de tasas cambiarias.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="brochure-footer">
+                    Ecosistema FinTech Cuenta Club Social - Diseñado para una comunidad moderna, segura y conectada.
+                </div>
+            </div>
+        </div>
+```
+
+- [ ] **Step 2: Commit parcial de la adición del brochure**
+
+```bash
+git add docs/reporte_proyecto.html
+git commit -m "docs: add executive brochure section to the HTML report"
+```
+
+---
+
+### Task 4: Compilación a PDF y Verificación
+
+**Files:**
+- Create: `Ecosistema_FinTech_Club_Social.pdf` (Generado por comando)
+
+- [ ] **Step 1: Compilar el reporte HTML actualizado a PDF usando headless Chrome**
+
+Run:
+```powershell
+Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" -ArgumentList "--headless=new", "--disable-gpu", "--no-sandbox", "--print-to-pdf=C:\Coding\PJNautico\Ecosistema_FinTech_Club_Social.pdf", "C:\Coding\PJNautico\docs\reporte_proyecto.html" -Wait
+```
+Expected: Se crea el archivo `C:\Coding\PJNautico\Ecosistema_FinTech_Club_Social.pdf` de forma exitosa.
+
+- [ ] **Step 2: Verificar la existencia y tamaño del PDF generado**
+
+Run:
+```powershell
+Get-ChildItem C:\Coding\PJNautico\Ecosistema_FinTech_Club_Social.pdf
+```
+Expected: El archivo existe y su tamaño aproximado es de ~200-300 KB.
+
+- [ ] **Step 3: Commit final de la compilación de PDF**
+
+```bash
+git add Ecosistema_FinTech_Club_Social.pdf
+git commit -m "docs: compile updated master PDF with new styling and executive brochure"
+```

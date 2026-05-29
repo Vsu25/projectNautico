@@ -1,0 +1,26 @@
+<h2>How should staff access the panel in the frontend mockup?</h2>
+<p class="subtitle">Since they are separate layouts, select how we simulate switching between the Partner Portal and Staff Panel.</p>
+
+<div class="options">
+  <div class="option" data-choice="header_toggle" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Header Mode Switcher</h3>
+      <p>A quick-switch link or button in the header (e.g. "Switch to Staff Portal" / "Switch to Member Portal") for easy mockup testing.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="url_hash" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>URL Routing (Hash based)</h3>
+      <p>The panel is loaded only if the URL contains <code>#/staff</code>. The layout remains completely decoupled from the normal user routing.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="launcher" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Dual-Launcher Welcome Screen</h3>
+      <p>A simple root welcome screen that lets you choose "Enter Member App" or "Enter Staff App", fully separating the layout entry points.</p>
+    </div>
+  </div>
+</div>
